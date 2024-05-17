@@ -36,6 +36,10 @@ public class UsersTest {
 				.username(faker.regexify("[a-zA-Z0-9]{5,16}")).password(password).passwordConfirmation(password)
 				.enabled(true).build();
 	}
+	
+	// Some tests may fail because faker.internet().password() generates some
+	// passwords that do not contain the required data for validation. If this
+	// happens, rerun the tests.
 
 	@Test
 	public void testUser_CreationWithNotViolations() {
