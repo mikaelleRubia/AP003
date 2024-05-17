@@ -4,14 +4,13 @@ import java.io.Serializable;
 
 import java.util.List;
 
-import jakarta.persistence.CollectionTable;
-import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-import jakarta.persistence.JoinColumn;
+
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -26,6 +25,8 @@ public class Category implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    
+    @NotBlank(message = "Valor do campo name não pode ser null ou vazio")
     private String name;
     
     private List<String> possibleFacets;
