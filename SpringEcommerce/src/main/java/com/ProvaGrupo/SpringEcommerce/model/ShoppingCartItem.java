@@ -1,4 +1,4 @@
-package model;
+package com.ProvaGrupo.SpringEcommerce.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
