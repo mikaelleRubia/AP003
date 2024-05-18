@@ -14,6 +14,12 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Represents a user in the system.
+ * Each user has a unique identifier, email, username, password, and an enabled status.
+ * The class also includes password confirmation logic for validation purposes.
+ */
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder

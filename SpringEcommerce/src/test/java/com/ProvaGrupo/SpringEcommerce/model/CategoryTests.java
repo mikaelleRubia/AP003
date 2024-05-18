@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,49 +23,71 @@ import jakarta.validation.Validator;
 
 @SpringBootTest
 public class CategoryTests {
-	private static final Faker faker = new Faker(new Locale("py-br"));
-	private static final Logger LOGGER = LoggerFactory.getLogger(CategoryTests.class);
-	private final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
-	
+    private static final Faker faker = new Faker(new Locale("py-br"));
+    private static final Logger LOGGER = LoggerFactory.getLogger(CategoryTests.class);
+    private final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+    
+	private String name;
+	private Category category;
+    
+	@BeforeEach
+	void setUp() throws Exception{
+
+		name = faker.commerce().productName();
+
+		category = Category.builder()
+				.name(name)
+				.possibleFacets(new ArrayList<>())
+				.build();
+	}
 	
     @Test
-    public void testCreateCategory() {
-        String name = faker.commerce().department();
-        List<String> facets = new ArrayList<>(); 
+    public void shouldCreateCategorySuccessfully() {
 
-        Category category = new Category(null, name, facets);
-        LOGGER.info("--------Executando testCreateCategory--------");
+        LOGGER.info("Test shouldCreateCategorySuccessfully: Creating category with name '{}'", name);
+        
         assertNull(category.getId());
         assertEquals(name, category.getName());
         assertTrue(category.getPossibleFacets().isEmpty());
     }
-	
     
     @Test
-    public void testSettersCategory() {
+    public void shouldSetCategoryPropertiesSuccessfully() {
         String name = faker.commerce().department();
         List<String> facets = new ArrayList<>(); 
 
-        Category category = new Category();
         category.setName(name);
         category.setPossibleFacets(facets);
-        LOGGER.info("--------Executando testSettersCategory--------");
+        LOGGER.info("Test shouldSetCategoryPropertiesSuccessfully: Setting category properties to name '{}'", name);
 
         assertEquals(name, category.getName());
         assertTrue(category.getPossibleFacets().isEmpty());
     }
     
     @Test
-    public void testValidationNameNull() {
-    	Category category = new Category();
-    	category.setName(null);
+    public void shouldFailValidationWhenNameIsNull() {
+        category.setName(null);
 
         var violations = validator.validate(category);
 
         assertEquals(1, violations.size());
         ConstraintViolation<Category> violation = violations.iterator().next();
-        LOGGER.info("--------Executando  testValidationNameNull --------");
-        assertEquals("Valor do campo name não pode ser null ou vazio", violation.getMessage());
+        LOGGER.info("Test shouldFailValidationWhenNameIsNull: Validating category with null name");
+
+        assertEquals("Category name cannot be null or empty", violation.getMessage());
     }
-	
+    
+    @Test
+    public void shouldFailValidationWhenInvalidNameLength() {
+        
+        category.setName("La");
+
+        var violations = validator.validate(category);
+
+        assertEquals(1, violations.size());
+        ConstraintViolation<Category> violation = violations.iterator().next();
+        LOGGER.info("Test shouldFailValidationWhenNameIsNull: Validating category Name Length");
+
+        assertEquals("Category name must be between 3 and 100 characters", violation.getMessage());
+    }
 }
