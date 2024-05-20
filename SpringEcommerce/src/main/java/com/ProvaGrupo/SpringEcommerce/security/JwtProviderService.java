@@ -9,7 +9,7 @@ import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.JwtEncoderParameters;
 import org.springframework.stereotype.Service;
 
-import com.ProvaGrupo.SpringEcommerce.entity.Usuario;
+import com.ProvaGrupo.SpringEcommerce.model.Users;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -50,7 +50,7 @@ public class JwtProviderService {
 	
 	// TODO: Trocar Usuario para a classe criada para o usuário
 	// Metodo para gerar o token auternativo
-	public String generateToken(Usuario user) {
+	public String generateToken(Users user) {
 		var now = Instant.now();
 		JwtClaimsSet claims = JwtClaimsSet.builder()
 				.issuer("self")

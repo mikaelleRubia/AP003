@@ -1,4 +1,4 @@
-package com.ProvaGrupo.SpringEcommerce.entity;
+package com.ProvaGrupo.SpringEcommerce.model;
 
 import java.time.Instant;
 
@@ -35,7 +35,5 @@ public class VerificationToken {
 	@NotNull(message = "ExpiryDate obrigatório")
 	@Column(nullable = false)
 	private Instant expiryDate;
-	
-	
 	
 }
