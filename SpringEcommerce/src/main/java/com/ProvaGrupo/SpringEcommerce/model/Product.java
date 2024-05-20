@@ -72,6 +72,8 @@ public class Product  {
 //    @NotNull(message = "Category ID is required")
 //    @Column(name = "category_id")
 //    private Long categoryId;
+//    
+//    private List<ProductAttribute> productAttributeList;
 
     @Min(value = 0, message = "Quantity cannot be negative")
     private Integer quantity;

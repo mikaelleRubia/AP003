@@ -53,7 +53,7 @@ public class ProductRating {
     private String userName;
     
     @ManyToOne
-    @JoinColumn(name = "Product_id_class", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "product_id_class")
     private Product product;
     
 }
