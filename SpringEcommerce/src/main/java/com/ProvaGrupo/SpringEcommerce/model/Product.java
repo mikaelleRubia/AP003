@@ -1,6 +1,5 @@
 package com.ProvaGrupo.SpringEcommerce.model;
 
-
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -72,6 +71,8 @@ public class Product  {
 //    @NotNull(message = "Category ID is required")
 //    @Column(name = "category_id")
 //    private Long categoryId;
+//    
+//    private List<ProductAttribute> productAttributeList;
 
     @Min(value = 0, message = "Quantity cannot be negative")
     private Integer quantity;
@@ -99,8 +100,4 @@ public class Product  {
 		this.featured = featured;
 		this.productRating = productRating;
 	}
-    
-    
-    
-
 }
