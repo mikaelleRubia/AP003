@@ -21,11 +21,10 @@ public class JwtProviderService {
 	
 	private final JwtEncoder jwtEncoder;
 	
-	// 3600 segundos = 1 hora
-	public static final Long EXPIRATION_TIME_IN_SECONDS = 3600L;
 	
 	
-	public String generateToken(Authentication authentication) {
+	
+	public String generateToken(Authentication authentication, Long EXPIRATION_TIME_IN_SECONDS) {
 		log.info("Authentication generateToken: {}", authentication.toString());
 		User principal = (User) authentication.getPrincipal();
 		log.info("Principal: {}", principal.toString());
@@ -48,9 +47,7 @@ public class JwtProviderService {
 		return this.jwtEncoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
 	}
 	
-	// TODO: Trocar Usuario para a classe criada para o usuário
-	// Metodo para gerar o token auternativo
-	public String generateToken(Users user) {
+	public String generateToken(Users user, Long EXPIRATION_TIME_IN_SECONDS) {
 		var now = Instant.now();
 		JwtClaimsSet claims = JwtClaimsSet.builder()
 				.issuer("self")
