@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ShoppingCartItemTest {
-    private static  final Faker faker = new Faker(new Locale("pt-BR"));
+    private static  final Faker faker = new Faker(new Locale("en-US"));
     private static final Logger log = LoggerFactory.getLogger(ShoppingCartItemTest.class);
     private static Validator validator;
 
