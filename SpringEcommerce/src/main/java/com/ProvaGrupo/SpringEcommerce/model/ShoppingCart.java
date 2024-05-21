@@ -2,9 +2,7 @@ package com.ProvaGrupo.SpringEcommerce.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -13,6 +11,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Entity
 public class ShoppingCart {
     @Id
@@ -27,6 +26,7 @@ public class ShoppingCart {
     @NotBlank(message = "Username shouldn't be empty")
     private String username;
 
-    @OneToMany(mappedBy = "shoppingCart" , cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ToString.Exclude
+    @OneToMany(mappedBy = "shoppingCart" , cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<ShoppingCartItem> shoppingCartItems;
 }
