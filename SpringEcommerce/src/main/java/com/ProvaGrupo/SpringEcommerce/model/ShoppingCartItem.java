@@ -5,15 +5,14 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.math.BigDecimal;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Builder
 public class ShoppingCartItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,6 +25,7 @@ public class ShoppingCartItem {
     @NotNull(message = "Price shouldn't be null")
     private BigDecimal price;
 
+    @ToString.Exclude
     @ManyToOne
     @JoinColumn(name = "shoppingCartId")
     private ShoppingCart shoppingCart;

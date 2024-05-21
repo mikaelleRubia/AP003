@@ -2,10 +2,7 @@ package com.ProvaGrupo.SpringEcommerce.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -32,6 +29,7 @@ public class ShoppingCart {
     @Size(min = 3, max = 30, message = "Username should be between 3 and 30 characters")
     private String username;
 
-    @OneToMany(mappedBy = "shoppingCart" , cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ToString.Exclude
+    @OneToMany(mappedBy = "shoppingCart" , cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<ShoppingCartItem> shoppingCartItems;
 }
