@@ -47,9 +47,11 @@ public class ProductTest {
                 .sku(faker.regexify("[a-zA-Z0-9]{2,50}"))
                 .imageUrl("https://example.com/image.jpg")
                 .category(category)
+                .productAttributeList(new ArrayList<>())
                 .quantity(10)
                 .manufacturer("Example Manufacturer")
                 .featured(true)
+                .productRating(new ArrayList<>())
                 .build();
     }
 	

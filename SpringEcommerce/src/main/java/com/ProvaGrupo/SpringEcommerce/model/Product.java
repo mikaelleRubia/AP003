@@ -71,7 +71,10 @@ public class Product  {
 //    @Column(name = "category_id")
 //    private Long categoryId;
 //    
-//    private List<ProductAttribute> productAttributeList;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    private List<ProductAttribute> productAttributeList;
 
     @Min(value = 0, message = "Quantity cannot be negative")
     private Integer quantity;
@@ -85,7 +88,7 @@ public class Product  {
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<ProductRating> productRating;
 
-	public Product( String name, String description, BigDecimal price, String sku, String imageUrl, Category category, Integer quantity, String manufacturer,
+	public Product( String name, String description, BigDecimal price, String sku, String imageUrl, Category category, List<ProductAttribute> productAttributeList, Integer quantity, String manufacturer,
 			boolean featured, List<ProductRating> productRating) {
 		super();
 		this.name = name;
@@ -94,9 +97,14 @@ public class Product  {
 		this.sku = sku;
 		this.imageUrl = imageUrl;
 		this.category = category;
+		this.productAttributeList = productAttributeList;
 		this.quantity = quantity;
 		this.manufacturer = manufacturer;
 		this.featured = featured;
 		this.productRating = productRating;
 	}
+	
+    public boolean getFeatured() {
+        return featured;
+    }
 }

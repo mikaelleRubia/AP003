@@ -14,10 +14,8 @@ import org.mockito.Mockito;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.ProvaGrupo.SpringEcommerce.controller.dto.CategoryDto;
-import com.ProvaGrupo.SpringEcommerce.controller.form.CategoryForm;
 import com.ProvaGrupo.SpringEcommerce.model.Category;
 import com.ProvaGrupo.SpringEcommerce.repository.CategoryRepository;
-import com.ProvaGrupo.SpringEcommerce.service.CategoryService;
 import com.github.javafaker.Faker;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -38,9 +36,6 @@ public class CategoryServiceTest {
 	private String name;
 	private Category category;
 	private List<Category> categories = new ArrayList<>();
-	private List<CategoryDto> categoriesDto = new ArrayList<>();
-	private Category categoryNew;
-	private CategoryForm categoryForm;
 
 	@BeforeEach
 	void setUp() throws Exception{
@@ -52,8 +47,7 @@ public class CategoryServiceTest {
 				.name(name)
 				.possibleFacets(new ArrayList<>())
 				.build();
-		
-		categoryForm = new CategoryForm(category.getName(), category.getPossibleFacets());
+	
 		
 		Mockito.when(categoryRepository.findAll()).thenReturn(categories);
 		Mockito.when(categoryRepository.findById(existingId)).thenReturn(Optional.of(category));
