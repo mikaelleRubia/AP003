@@ -2,8 +2,8 @@ package com.ProvaGrupo.SpringEcommerce.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.ProvaGrupo.SpringEcommerce.controller.dto.ProductDto;
 import com.ProvaGrupo.SpringEcommerce.controller.form.ProductForm;
+import com.ProvaGrupo.SpringEcommerce.dto.ProductDto;
 import com.ProvaGrupo.SpringEcommerce.model.Product;
 import com.ProvaGrupo.SpringEcommerce.model.ProductAttribute;
 import com.ProvaGrupo.SpringEcommerce.model.ProductRating;
