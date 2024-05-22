@@ -29,7 +29,6 @@ import lombok.NoArgsConstructor;
 
 /**
  * A user entity that implements the UserDetails interface to be used by Spring Security. 
- * The entity has a one-to-many relationship with the Wishlist entity.
  * The entity has a OneTimePassword embedded class to store the OTP and its generation time.
  * 
  * Each user has an id, a login, a password, an email, a birth date, a mobile phone, a role and a set of wishlists,
