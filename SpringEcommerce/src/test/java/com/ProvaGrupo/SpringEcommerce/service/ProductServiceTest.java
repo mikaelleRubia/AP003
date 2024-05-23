@@ -14,7 +14,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import com.ProvaGrupo.SpringEcommerce.controller.dto.ProductDto;
+import com.ProvaGrupo.SpringEcommerce.dto.ProductDto;
 import com.ProvaGrupo.SpringEcommerce.model.Category;
 import com.ProvaGrupo.SpringEcommerce.model.Product;
 import com.ProvaGrupo.SpringEcommerce.repository.ProductRepository;

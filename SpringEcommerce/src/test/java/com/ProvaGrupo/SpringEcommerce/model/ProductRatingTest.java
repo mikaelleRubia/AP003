@@ -24,17 +24,19 @@ public class ProductRatingTest {
     private Validator validator;
     private ProductRating productRating;
     private Faker faker;
+    private Product product;
 
     @BeforeEach
     public void setUp() {
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         validator = factory.getValidator();
         faker = new Faker();
+        product = new Product();
         
         productRating = new ProductRating();
         productRating.setId(1L);
         productRating.setRatingStars(new BigDecimal(faker.number().randomDouble(1, 1, 5)));
-        productRating.setProductId(3L);
+        productRating.setProduct(product);
         productRating.setUserName(faker.regexify("[a-zA-Z0-9]{5,16}"));
     }
 
@@ -67,14 +69,14 @@ public class ProductRatingTest {
 
     @Test
     public void testProductId_CreationWithNotNullViolations() {
-        productRating.setProductId(null);
+        productRating.setProduct(null);
 
         Set<ConstraintViolation<ProductRating>> violations = validator.validate(productRating);
 
         assertFalse(violations.isEmpty());
-        assertTrue(violations.stream().anyMatch(v -> v.getMessage().contains("Product id is required")));
+        assertTrue(violations.stream().anyMatch(v -> v.getMessage().contains("Product is required")));
 
-        log.info("Product id validation tests completed.");
+        log.info("Product validation tests completed.");
     }
 
     @Test

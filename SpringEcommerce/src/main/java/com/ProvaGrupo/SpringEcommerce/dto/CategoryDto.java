@@ -1,4 +1,4 @@
-package com.ProvaGrupo.SpringEcommerce.controller.dto;
+package com.ProvaGrupo.SpringEcommerce.dto;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
 package com.ProvaGrupo.SpringEcommerce.service;
 
-import com.ProvaGrupo.SpringEcommerce.controller.dto.CategoryDto;
 import com.ProvaGrupo.SpringEcommerce.controller.form.CategoryForm;
+import com.ProvaGrupo.SpringEcommerce.dto.CategoryDto;
 import com.ProvaGrupo.SpringEcommerce.model.*;
 import java.util.List;
 

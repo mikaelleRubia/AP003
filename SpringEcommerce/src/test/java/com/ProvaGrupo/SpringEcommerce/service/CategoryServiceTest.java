@@ -13,7 +13,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import com.ProvaGrupo.SpringEcommerce.controller.dto.CategoryDto;
+import com.ProvaGrupo.SpringEcommerce.dto.CategoryDto;
 import com.ProvaGrupo.SpringEcommerce.model.Category;
 import com.ProvaGrupo.SpringEcommerce.repository.CategoryRepository;
 import com.github.javafaker.Faker;

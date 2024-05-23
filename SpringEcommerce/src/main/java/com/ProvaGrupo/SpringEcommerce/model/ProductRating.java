@@ -40,18 +40,14 @@ public class ProductRating {
     @Max(value = 5, message = "Product rating must be between 1 and 5")
     private BigDecimal ratingStars;
     
-    @NotNull(message = "Product id is required")
-    private Long productId;
-    
-//    @NotBlank(message = "Elastic Search product id is required")
-//    private String elasticSearchProductId;
-    
     private String review;
     
     @NotBlank(message = "User name is required")
     @Size(min = 5, max = 16, message = "User name needs to be at least 5 characters long and at most 16 characters long")
     private String userName;
-    
+
+
+    @NotNull(message = "Product is required")
     @ManyToOne
     @JoinColumn(name = "product_id_class")
     private Product product;
