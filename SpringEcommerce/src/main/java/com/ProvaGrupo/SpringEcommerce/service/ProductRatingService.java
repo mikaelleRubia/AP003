@@ -1,13 +1,11 @@
 package com.ProvaGrupo.SpringEcommerce.service;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
 
 import com.ProvaGrupo.SpringEcommerce.dto.ProductRatingDto;
 
 import jakarta.validation.Valid;
 
-@Service
 public class ProductRatingService {
 
 	public ResponseEntity<?> postProductRating(@Valid ProductRatingDto productRatingDto) {
