@@ -20,7 +20,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.ProvaGrupo.SpringEcommerce.auth.exception.domain.authentication.InvalidOtpException;
-import com.ProvaGrupo.SpringEcommerce.auth.exception.domain.reset.password.MissingArgumentsToResetPasswordException;
+import com.ProvaGrupo.SpringEcommerce.auth.exception.domain.reset.password.MissArgsResetPassException;
 import com.ProvaGrupo.SpringEcommerce.auth.exception.domain.reset.password.PasswordsDoNotMatchException;
 import com.ProvaGrupo.SpringEcommerce.auth.exception.domain.user.UserNotEnabledException;
 import com.ProvaGrupo.SpringEcommerce.auth.exception.domain.user.UserNotFoundException;
@@ -123,7 +123,7 @@ public class PasswordResetServiceTest {
 
         String email = faker.internet().emailAddress();
 
-        assertThrows(MissingArgumentsToResetPasswordException.class, () -> passwordResetService.reset(email, null, data)); // should throw MissingArgumentsToResetPasswordException
+        assertThrows(MissArgsResetPassException.class, () -> passwordResetService.reset(email, null, data)); // should throw MissingArgumentsToResetPasswordException
     }
 
     @Test
@@ -133,7 +133,7 @@ public class PasswordResetServiceTest {
 
         PasswordResetDTO data = new PasswordResetDTO(null, null);
 
-        assertThrows(MissingArgumentsToResetPasswordException.class, () -> passwordResetService.reset(email, token, data)); // should throw MissingArgumentsToResetPasswordException
+        assertThrows(MissArgsResetPassException.class, () -> passwordResetService.reset(email, token, data)); // should throw MissingArgumentsToResetPasswordException
     }
 
     @Test

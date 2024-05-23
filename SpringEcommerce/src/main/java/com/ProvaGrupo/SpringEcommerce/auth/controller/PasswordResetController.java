@@ -3,6 +3,7 @@ package com.ProvaGrupo.SpringEcommerce.auth.controller;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+import com.ProvaGrupo.SpringEcommerce.auth.exception.domain.reset.password.MissArgsResetPassException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -73,7 +74,7 @@ public class PasswordResetController {
     public ResponseEntity<String> reset(
             @RequestParam String email,
             @RequestParam String token,
-            @RequestBody @Valid PasswordResetDTO data) {
+            @RequestBody @Valid PasswordResetDTO data) throws MissArgsResetPassException {
 
         passwordResetService.reset(email, token, data);
         return ResponseEntity.ok(bundle.getString("password_reset.successful"));

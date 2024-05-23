@@ -1,6 +1,7 @@
 package com.ProvaGrupo.SpringEcommerce.auth.service;
 
 
+import com.ProvaGrupo.SpringEcommerce.auth.exception.domain.reset.password.MissArgsResetPassException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -77,11 +78,11 @@ public class PasswordResetService {
      * @throws InvalidOtpException if the OTP is invalid or expired
      * @throws PasswordsDoNotMatchException if the new password and the confirmation password do not match
      */
-    public void reset(String email, String token, PasswordResetDTO data) {
+    public void reset(String email, String token, PasswordResetDTO data) throws MissArgsResetPassException {
         log.info("Received data to reset a password");
 
         if (token == null || data == null || data.password() == null || data.confirmPassword() == null) {
-            throw new MissingArgumentsToResetPasswordException();
+            throw new MissArgsResetPassException();
         }
             
         var user = userRepository.findByEmail(email)

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import com.ProvaGrupo.SpringEcommerce.auth.exception.RestErrorMessage;
-import com.ProvaGrupo.SpringEcommerce.auth.exception.domain.reset.password.MissingArgumentsToResetPasswordException;
+import com.ProvaGrupo.SpringEcommerce.auth.exception.domain.reset.password.MissArgsResetPassException;
 import com.ProvaGrupo.SpringEcommerce.auth.exception.domain.reset.password.PasswordsDoNotMatchException;
 
 /**
@@ -22,9 +22,9 @@ public class ResetPasswordExceptionsHandler extends ResponseEntityExceptionHandl
      * @param ex MissingArgumentsToResetPasswordException
      * @return ResponseEntity<RestErrorMessage> with status 400 and the exception message
      */
-    @ExceptionHandler(MissingArgumentsToResetPasswordException.class)
+    @ExceptionHandler(MissArgsResetPassException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ResponseEntity<RestErrorMessage> handleMissingArgumentsToResetPasswordException(MissingArgumentsToResetPasswordException ex) {
+    public ResponseEntity<RestErrorMessage> handleMissingArgumentsToResetPasswordException(MissArgsResetPassException ex) {
         RestErrorMessage threatResponse = new RestErrorMessage(HttpStatus.BAD_REQUEST, ex.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(threatResponse);
     }

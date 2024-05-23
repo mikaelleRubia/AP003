@@ -81,4 +81,42 @@ public class CartSevice {
             throw new SpringStoreException("User is not authenticated");
         }
     }
+
+    @Transactional
+    public void removeFromCart(String sku){
+        Product product = productRepository.findBySku(sku)
+                .orElseThrow(() -> new SpringStoreException("Product with SKU : " + sku + " not found"));
+
+        Optional<Users> currentUserOptional = authService.getCurrentUser();
+
+        if (currentUserOptional.isPresent()){
+            Users currentUser = currentUserOptional.get();
+            ShoppingCart cart = cartRepository.findByUsername(currentUser.getUsername())
+                    .orElseGet(() -> {
+                        ShoppingCart newCart = new ShoppingCart();
+                        newCart.setUsername(currentUser.getUsername());
+                        newCart.setCartTotalPrice(BigDecimal.ZERO);
+                        newCart.setNumberOfItems(0);
+                        return newCart;
+                    });
+
+            Optional<ShoppingCartItem> existingItem = shoppingCartItemRepository
+                    .findByShoppingCartIdAndProductId(cart.getId(), product.getId());
+
+            existingItem.ifPresent(item ->{
+                cart.getShoppingCartItems().remove(item);
+                shoppingCartItemRepository.delete(item);
+            });
+
+            cart.setCartTotalPrice(cart.getShoppingCartItems().stream()
+                    .map(ShoppingCartItem :: getPrice)
+                    .reduce(BigDecimal.ZERO, BigDecimal :: add));
+            cart.setNumberOfItems(cart.getShoppingCartItems().size());
+
+            cartRepository.save(cart);
+        }else {
+            throw new SpringStoreException("User isn't authenticated");
+        }
+    }
+
 }

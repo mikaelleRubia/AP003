@@ -51,6 +51,7 @@ public class CartSeviceTest {
     private Product product;
     private Users user;
     private ShoppingCart cart;
+    private ShoppingCartItem shoppingCartItem;
 
     @BeforeEach
     public void setUp(){
@@ -83,6 +84,14 @@ public class CartSeviceTest {
                 .numberOfItems(0)
                 .shoppingCartItems(new ArrayList<>())
                 .build();
+
+        shoppingCartItem = ShoppingCartItem.builder()
+                .Id(1L)
+                .name("Example Item")
+                .price(new BigDecimal("99.99"))
+                .shoppingCart(cart)
+                .product(product)
+                .build();
     }
 
     @Test
@@ -100,7 +109,7 @@ public class CartSeviceTest {
 
     @Test
     public void testAddToCartNewCartCreated(){
-        log.info("--- Running AddToCartProductNotFound ---\n");
+        log.info("--- Running AddToCartNewCartCreated ---\n");
         when(productRepository.findBySku(anyString())).thenReturn(Optional.of(product));
         when(authService.getCurrentUser()).thenReturn(Optional.of(user));
         when(cartRepository.findByUsername(anyString())).thenReturn(Optional.empty());
@@ -168,5 +177,23 @@ public class CartSeviceTest {
         assertEquals(product.getPrice().add(newProduct.getPrice()), finalCart.getCartTotalPrice(), "Cart's total price should match the sum of the products' prices");
 
         log.info("Completed test: testAddToCartExistingCartUpdated");
+    }
+
+    @Test
+    public void testRemoveItemFromCart(){
+        log.info("--- Running RemoveItemFromCart ---\n");
+        when(productRepository.findBySku(anyString())).thenReturn(Optional.of(product));
+        when(authService.getCurrentUser()).thenReturn(Optional.of(user));
+        when(cartRepository.findByUsername(anyString())).thenReturn(Optional.of(cart));
+        when(shoppingCartItemRepository.findByShoppingCartIdAndProductId(cart.getId(), product.getId()))
+                .thenReturn(Optional.of(shoppingCartItem));
+
+        log.debug("Removing product from the cart");
+        cartSevice.removeFromCart(product.getSku());
+
+        verify(shoppingCartItemRepository, times(1)).delete(shoppingCartItem); // Verifica se o método delete foi chamado uma vez com o item de carrinho fornecido
+        verify(cartRepository, times(1)).save(cart);
+
+        log.info("Completed test: testRemoveItemFromCart");
     }
 }
