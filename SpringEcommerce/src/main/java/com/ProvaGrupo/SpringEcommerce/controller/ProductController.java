@@ -3,7 +3,6 @@ package com.ProvaGrupo.SpringEcommerce.controller;
 import java.net.URI;
 import java.util.List;
 
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,31 +18,29 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.ProvaGrupo.SpringEcommerce.dto.CategoryDto;
-import com.ProvaGrupo.SpringEcommerce.controller.form.CategoryForm;
-import com.ProvaGrupo.SpringEcommerce.service.CategoryService;
-
-
+import com.ProvaGrupo.SpringEcommerce.controller.form.ProductForm;
+import com.ProvaGrupo.SpringEcommerce.dto.ProductDto;
+import com.ProvaGrupo.SpringEcommerce.service.ProductService;
 
 @RestController
-@RequestMapping("/api/category/")
-public class CategoryController {
-	private static final Logger LOGGER = LoggerFactory.getLogger(CategoryController.class);
+@RequestMapping("/api/product/")
+public class ProductController {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(ProductController.class);
 	
 	@Autowired
-	private CategoryService service;
+	private ProductService service;
 	
 	@GetMapping
-	public ResponseEntity<List<CategoryDto>> findAll(@RequestParam(value = "name", required = false) String name) {
+	public ResponseEntity<List<ProductDto>> findAll(@RequestParam(value = "name", required = false) String name) {
 	    try {
-
-	        List<CategoryDto> list;
+	        List<ProductDto> list;
 	        list = (name != null && !name.isEmpty()) ? service.findByName(name) : service.findAll();
-	        
+
 	        if (list.isEmpty()) {
 	            return ResponseEntity.noContent().build();
 	        }
-            LOGGER.info("Executing category search operation.");
+            LOGGER.info("Executing Product search operation.");
             return ResponseEntity.ok().body(list);
         } catch (IllegalArgumentException e) {
             LOGGER.error("Invalid search or sorting parameters: {}", e.getMessage());
@@ -52,58 +49,53 @@ public class CategoryController {
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<CategoryDto> update(@PathVariable Long id, @RequestBody CategoryForm categoryFor) {
+	public ResponseEntity<ProductDto> update(@PathVariable Long id, @RequestBody ProductForm productForm) {
         try {
-            CategoryDto categoryDto = service.update(id, categoryFor);
-            LOGGER.info("Updating category: {}", categoryFor.name());
-            return ResponseEntity.ok().body(categoryDto);
+            ProductDto productDto = service.update(id, productForm);
+            LOGGER.info("Updating product: {}", productForm.name());
+            return ResponseEntity.ok().body(productDto);
         } catch (Exception e) {
-            LOGGER.error("Category not found with id: {}", id);
+            LOGGER.error("product not found with id: {}", id);
             return ResponseEntity.notFound().build();
         }
 	}
 	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<CategoryDto> findById(@PathVariable Long id) {
+	public ResponseEntity<ProductDto> findById(@PathVariable Long id) {
         try {
-            CategoryDto categoryDto = service.findById(id);
-            LOGGER.info("Executing category search operation by ID: {}", id);
-            return ResponseEntity.ok().body(categoryDto);
+            ProductDto productDto = service.findById(id);
+            LOGGER.info("Executing product search operation by ID: {}", id);
+            return ResponseEntity.ok().body(productDto);
         } catch (Exception e) {
-            LOGGER.error("Category not found with id: {}", id);
+            LOGGER.error("product not found with id: {}", id);
             return ResponseEntity.notFound().build();
         }
 	}
 	
 	@PostMapping
-	public ResponseEntity<CategoryDto> insert(@RequestBody CategoryForm categoryFor, UriComponentsBuilder uriC) {
-		
+	public ResponseEntity<ProductDto> insert(@RequestBody ProductForm productForm, UriComponentsBuilder uriC) {
 		try {
-			CategoryDto categoryDto = service.insert(categoryFor);
-			URI uri = uriC.path("/api/category/{id}").buildAndExpand(categoryDto.getId()).toUri();
-			LOGGER.info("Inserting new category: {}", categoryFor.name());
-			return ResponseEntity.created(uri).body(categoryDto);
-			
+			ProductDto productDto = service.insert(productForm);
+			URI uri = uriC.path("/api/product/{id}").buildAndExpand(productDto.getId()).toUri();
+			LOGGER.info("Inserting new product: {}", productDto.getId());
+			return ResponseEntity.created(uri).body(productDto);
         } catch (Exception e) {
-        	LOGGER.error("Error inserting category: {}", e.getMessage());
+        	LOGGER.error("Error inserting produc: {}", e.getMessage());
             return ResponseEntity.notFound().build();
        }
-	
 	}
 	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Long id) {
 		try {
 			service.delete(id);
-			LOGGER.info("Category with ID {} was successfully deleted.", id);
+			LOGGER.info("product with ID {} was successfully deleted.", id);
 			return ResponseEntity.noContent().build();
 			
         } catch (Exception e) {
         	LOGGER.error("Category not found with id: {}", id);
             return ResponseEntity.notFound().build();
         }
-		
-	
 	}
 	
     @DeleteMapping("/")
@@ -117,5 +109,4 @@ public class CategoryController {
         LOGGER.warn("Attempt to update without specifying ID");
         return ResponseEntity.badRequest().build();
     }
-	
 }
