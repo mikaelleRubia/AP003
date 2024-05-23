@@ -67,7 +67,7 @@ public class ProductServiceTest {
         Mockito.when(productRepository.findById(existingId)).thenReturn(Optional.of(product));
         Mockito.when(productRepository.findById(nonExistingId)).thenReturn(Optional.empty());
 
-        Mockito.when(productRepository.findByName(Mockito.eq(name))).thenReturn(Optional.of(product));
+        Mockito.when(productRepository.findByName(Mockito.eq(name))).thenReturn(List.of(product));
         Mockito.doNothing().when(productRepository).deleteById(existingId);
         Mockito.doThrow(EntityNotFoundException.class).when(productRepository).deleteById(nonExistingId);
     

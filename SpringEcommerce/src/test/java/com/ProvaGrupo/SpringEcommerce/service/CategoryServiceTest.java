@@ -45,7 +45,7 @@ public class CategoryServiceTest {
 		
 		category = Category.builder()
 				.name(name)
-				.possibleFacets(new ArrayList<>())
+				.possibleFacets(List.of("facet1", "facet2"))
 				.build();
 	
 		
@@ -53,7 +53,7 @@ public class CategoryServiceTest {
 		Mockito.when(categoryRepository.findById(existingId)).thenReturn(Optional.of(category));
 		Mockito.when(categoryRepository.findById(nonExistingId)).thenReturn(Optional.empty());
 		
-		Mockito.when(categoryRepository.findByName(Mockito.eq(name))).thenReturn(Optional.of(category));
+		Mockito.when(categoryRepository.findByName(Mockito.eq(name))).thenReturn(List.of(category));
 		Mockito.doNothing().when(categoryRepository).deleteById(existingId);
 	    Mockito.doThrow(EntityNotFoundException.class).when(categoryRepository).deleteById(nonExistingId);
 

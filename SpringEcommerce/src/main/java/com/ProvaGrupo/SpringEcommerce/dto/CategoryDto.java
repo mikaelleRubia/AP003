@@ -18,9 +18,11 @@ public class CategoryDto {
     private List<String> possibleFacets;
     
     
-	public CategoryDto (Category entity) {
-		super();
-		this.id = entity.getId();
-		this.name = entity.getName();
-	}
+    public CategoryDto(Category entity) {
+        this.id = entity.getId();
+        this.name = entity.getName();
+
+        this.possibleFacets = entity.getPossibleFacets();
+           
+    }
 }

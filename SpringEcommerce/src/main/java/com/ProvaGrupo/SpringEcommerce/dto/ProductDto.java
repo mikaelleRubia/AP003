@@ -32,6 +32,7 @@ public class ProductDto {
     
 	public ProductDto(Product product ) {
 		super();
+		this.id = product.getId();
 		this.name = product.getName();
 		this.description = product.getDescription();
 		this.price = product.getPrice();
