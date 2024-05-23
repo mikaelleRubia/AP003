@@ -79,6 +79,7 @@
     "JUnit.CartSeviceTest.testAddToCartExistingCartUpdated.executor": "Run",
     "JUnit.CartSeviceTest.testAddToCartNewCartCreated.executor": "Run",
     "JUnit.CartSeviceTest.testAddToCartProductNotFound.executor": "Run",
+    "JUnit.CartSeviceTest.testClearCart.executor": "Run",
     "JUnit.CartSeviceTest.testRemoveItemFromCart.executor": "Run",
     "JUnit.CartSeviceTest.testUpdateItemQuantityInCart.executor": "Run",
     "JUnit.CartSeviceTest.testUpdateItemQuantityInCartCartNotFound.executor": "Run",
@@ -246,7 +247,7 @@
       <workItem from="1715951979013" duration="18003000" />
       <workItem from="1716301874428" duration="11692000" />
       <workItem from="1716389771855" duration="30555000" />
-      <workItem from="1716498158352" duration="2353000" />
+      <workItem from="1716498158352" duration="2685000" />
     </task>
     <servers />
   </component>
