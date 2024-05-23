@@ -69,6 +69,11 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "JUnit.CartControllerTest.testAddToCart.executor": "Run",
+    "JUnit.CartControllerTest.testClearCartSuccessfully.executor": "Run",
+    "JUnit.CartControllerTest.testClearCartUnauthorized.executor": "Run",
+    "JUnit.CartControllerTest.testRemoveFromCart.executor": "Run",
+    "JUnit.CartControllerTest.testUpdateItemQuantityInCart.executor": "Run",
     "JUnit.CartRepositoryTest.testFindByIdNotFound.executor": "Run",
     "JUnit.CartRepositoryTest.testFindByUsername.executor": "Run",
     "JUnit.CartRepositoryTest.testFindByUsernameNotFound.executor": "Run",
@@ -126,82 +131,81 @@
       <recent name="com.ProvaGrupo.SpringEcommerce.service" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.CartSeviceTest.testClearCart">
-    <configuration name="CartSeviceTest.testClearCart" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.CartControllerTest">
+    <configuration name="CartControllerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="SpringEcommerce" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.ProvaGrupo.SpringEcommerce.service.*" />
+          <option name="PATTERN" value="com.ProvaGrupo.SpringEcommerce.controller.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.ProvaGrupo.SpringEcommerce.service" />
-      <option name="MAIN_CLASS_NAME" value="com.ProvaGrupo.SpringEcommerce.service.CartSeviceTest" />
-      <option name="METHOD_NAME" value="testClearCart" />
+      <option name="PACKAGE_NAME" value="com.ProvaGrupo.SpringEcommerce.controller" />
+      <option name="MAIN_CLASS_NAME" value="com.ProvaGrupo.SpringEcommerce.controller.CartControllerTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CartControllerTest.testAddToCart" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="SpringEcommerce" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.ProvaGrupo.SpringEcommerce.controller.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.ProvaGrupo.SpringEcommerce.controller" />
+      <option name="MAIN_CLASS_NAME" value="com.ProvaGrupo.SpringEcommerce.controller.CartControllerTest" />
+      <option name="METHOD_NAME" value="testAddToCart" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CartSeviceTest.testUpdateItemQuantityInCart" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="CartControllerTest.testClearCartUnauthorized" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="SpringEcommerce" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.ProvaGrupo.SpringEcommerce.service.*" />
+          <option name="PATTERN" value="com.ProvaGrupo.SpringEcommerce.controller.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.ProvaGrupo.SpringEcommerce.service" />
-      <option name="MAIN_CLASS_NAME" value="com.ProvaGrupo.SpringEcommerce.service.CartSeviceTest" />
+      <option name="PACKAGE_NAME" value="com.ProvaGrupo.SpringEcommerce.controller" />
+      <option name="MAIN_CLASS_NAME" value="com.ProvaGrupo.SpringEcommerce.controller.CartControllerTest" />
+      <option name="METHOD_NAME" value="testClearCartUnauthorized" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CartControllerTest.testRemoveFromCart" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="SpringEcommerce" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.ProvaGrupo.SpringEcommerce.controller.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.ProvaGrupo.SpringEcommerce.controller" />
+      <option name="MAIN_CLASS_NAME" value="com.ProvaGrupo.SpringEcommerce.controller.CartControllerTest" />
+      <option name="METHOD_NAME" value="testRemoveFromCart" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CartControllerTest.testUpdateItemQuantityInCart" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="SpringEcommerce" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.ProvaGrupo.SpringEcommerce.controller.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.ProvaGrupo.SpringEcommerce.controller" />
+      <option name="MAIN_CLASS_NAME" value="com.ProvaGrupo.SpringEcommerce.controller.CartControllerTest" />
       <option name="METHOD_NAME" value="testUpdateItemQuantityInCart" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="CartSeviceTest.testUpdateItemQuantityInCartCartNotFound" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="SpringEcommerce" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.ProvaGrupo.SpringEcommerce.service.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.ProvaGrupo.SpringEcommerce.service" />
-      <option name="MAIN_CLASS_NAME" value="com.ProvaGrupo.SpringEcommerce.service.CartSeviceTest" />
-      <option name="METHOD_NAME" value="testUpdateItemQuantityInCartCartNotFound" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="CartSeviceTest.testUpdateItemQuantityInCartProductNotFound" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="SpringEcommerce" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.ProvaGrupo.SpringEcommerce.service.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.ProvaGrupo.SpringEcommerce.service" />
-      <option name="MAIN_CLASS_NAME" value="com.ProvaGrupo.SpringEcommerce.service.CartSeviceTest" />
-      <option name="METHOD_NAME" value="testUpdateItemQuantityInCartProductNotFound" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="CartSeviceTest.testUpdateItemQuantityInCartUserNotAuthenticated" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="SpringEcommerce" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.ProvaGrupo.SpringEcommerce.service.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.ProvaGrupo.SpringEcommerce.service" />
-      <option name="MAIN_CLASS_NAME" value="com.ProvaGrupo.SpringEcommerce.service.CartSeviceTest" />
-      <option name="METHOD_NAME" value="testUpdateItemQuantityInCartUserNotAuthenticated" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -217,11 +221,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.CartSeviceTest.testClearCart" />
-        <item itemvalue="JUnit.CartSeviceTest.testUpdateItemQuantityInCart" />
-        <item itemvalue="JUnit.CartSeviceTest.testUpdateItemQuantityInCartCartNotFound" />
-        <item itemvalue="JUnit.CartSeviceTest.testUpdateItemQuantityInCartUserNotAuthenticated" />
-        <item itemvalue="JUnit.CartSeviceTest.testUpdateItemQuantityInCartProductNotFound" />
+        <item itemvalue="JUnit.CartControllerTest" />
+        <item itemvalue="JUnit.CartControllerTest.testUpdateItemQuantityInCart" />
+        <item itemvalue="JUnit.CartControllerTest.testRemoveFromCart" />
+        <item itemvalue="JUnit.CartControllerTest.testAddToCart" />
+        <item itemvalue="JUnit.CartControllerTest.testClearCartUnauthorized" />
       </list>
     </recent_temporary>
   </component>
@@ -247,7 +251,7 @@
       <workItem from="1715951979013" duration="18003000" />
       <workItem from="1716301874428" duration="11692000" />
       <workItem from="1716389771855" duration="30555000" />
-      <workItem from="1716498158352" duration="2685000" />
+      <workItem from="1716498158352" duration="4336000" />
     </task>
     <servers />
   </component>
