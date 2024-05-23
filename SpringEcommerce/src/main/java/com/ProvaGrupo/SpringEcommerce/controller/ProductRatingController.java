@@ -1,7 +1,5 @@
 package com.ProvaGrupo.SpringEcommerce.controller;
 
-import static org.springframework.http.HttpStatus.OK;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -42,6 +40,6 @@ public class ProductRatingController {
 
     @GetMapping("/get/{sku}")
     public ResponseEntity<?> getRating(@PathVariable String sku) {
-        return new ResponseEntity<>(productRatingService.getProductRating(sku), OK);
+        return productRatingService.getProductRating(sku);
     }
 }
