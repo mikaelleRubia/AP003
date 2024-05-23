@@ -12,7 +12,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import com.github.javafaker.Faker;
 
@@ -21,10 +20,9 @@ import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 
 
-@SpringBootTest
-public class CategoryTests {
-    private static final Faker faker = new Faker(new Locale("py-br"));
-    private static final Logger LOGGER = LoggerFactory.getLogger(CategoryTests.class);
+public class CategoryTest {
+    private static final Faker faker = new Faker(new Locale("pt-BR"));
+    private static final Logger LOGGER = LoggerFactory.getLogger(CategoryTest.class);
     private final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
     
 	private String name;

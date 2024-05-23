@@ -22,12 +22,9 @@ public class ShoppingCart {
     @PositiveOrZero(message = "Cart total price should to be 0 or greater")
     @NotNull(message = "Cart total price shouldn't be null")
     private BigDecimal cartTotalPrice;
-
-    @Min(value = 0, message = "Number of items should to be 0 or greater")
     private int numberOfItems;
 
     @NotBlank(message = "Username shouldn't be empty")
-    @Size(min = 3, max = 30, message = "Username should be between 3 and 30 characters")
     private String username;
 
     @ToString.Exclude
