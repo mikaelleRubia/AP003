@@ -1,5 +1,6 @@
 package com.ProvaGrupo.SpringEcommerce.service;
 
+import com.ProvaGrupo.SpringEcommerce.auth.service.AuthorizationService;
 import com.ProvaGrupo.SpringEcommerce.exception.SpringStoreException;
 import com.ProvaGrupo.SpringEcommerce.model.Product;
 import com.ProvaGrupo.SpringEcommerce.model.ShoppingCart;
@@ -8,6 +9,7 @@ import com.ProvaGrupo.SpringEcommerce.model.Users;
 import com.ProvaGrupo.SpringEcommerce.repository.CartRepository;
 import com.ProvaGrupo.SpringEcommerce.repository.ProductRepository;
 import com.ProvaGrupo.SpringEcommerce.repository.ShoppingCartItemRepository;
+import com.ProvaGrupo.SpringEcommerce.auth.service.AuthenticationService;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
