@@ -1,22 +1,23 @@
 package com.ProvaGrupo.SpringEcommerce.service;
 
+import java.math.BigDecimal;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.ProvaGrupo.SpringEcommerce.auth.model.User;
 import com.ProvaGrupo.SpringEcommerce.auth.service.AuthorizationService;
 import com.ProvaGrupo.SpringEcommerce.exception.SpringStoreException;
 import com.ProvaGrupo.SpringEcommerce.model.Product;
 import com.ProvaGrupo.SpringEcommerce.model.ShoppingCart;
 import com.ProvaGrupo.SpringEcommerce.model.ShoppingCartItem;
-import com.ProvaGrupo.SpringEcommerce.model.Users;
 import com.ProvaGrupo.SpringEcommerce.repository.CartRepository;
 import com.ProvaGrupo.SpringEcommerce.repository.ProductRepository;
 import com.ProvaGrupo.SpringEcommerce.repository.ShoppingCartItemRepository;
-import com.ProvaGrupo.SpringEcommerce.auth.service.AuthenticationService;
+
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.math.BigDecimal;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -26,7 +27,7 @@ public class CartSevice {
     private ProductRepository productRepository;
 
     @Autowired
-    private AuthService authService;
+    private AuthorizationService authService;
 
     @Autowired
     private CartRepository cartRepository;
@@ -39,10 +40,10 @@ public class CartSevice {
         Product product = productRepository.findBySku(sku)
                 .orElseThrow(() -> new SpringStoreException("Product with SKU : " + sku + " not found"));
 
-        Optional<Users> currentUserOptional = authService.getCurrentUser();
+        Optional<User> currentUserOptional = authService.getCurrentUser();
 
         if (currentUserOptional.isPresent()){
-            Users currentUser = currentUserOptional.get();
+            User currentUser = currentUserOptional.get();
             ShoppingCart cart = cartRepository.findByUsername(currentUser.getUsername())
                     .orElseGet(() -> {
                         ShoppingCart newCart = new ShoppingCart();
@@ -87,10 +88,10 @@ public class CartSevice {
         Product product = productRepository.findBySku(sku)
                 .orElseThrow(() -> new SpringStoreException("Product with SKU : " + sku + " not found"));
 
-        Optional<Users> currentUserOptional = authService.getCurrentUser();
+        Optional<User> currentUserOptional = authService.getCurrentUser();
 
         if (currentUserOptional.isPresent()){
-            Users currentUser = currentUserOptional.get();
+            User currentUser = currentUserOptional.get();
             ShoppingCart cart = cartRepository.findByUsername(currentUser.getUsername())
                     .orElseGet(() -> {
                         ShoppingCart newCart = new ShoppingCart();

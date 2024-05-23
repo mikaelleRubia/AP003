@@ -10,7 +10,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -56,43 +55,42 @@ public class AuthenticationServiceTest {
 
     @Test
     public void testSignupUserLoginAlreadyExists() {
-        SignupDTO data = new SignupDTO("login_test", "PasswordA12@", "test@test.com", LocalDate.now(), "1234567890");
+        SignupDTO data = new SignupDTO("login_test", "PasswordA12@", "test@test.com");
 
         // Mocking the behavior of the methods that will be called in the service method
-        when(userRepository.existsByLogin(data.login())).thenReturn(true);
+        when(userRepository.existsByUsername(data.username())).thenReturn(true);
 
         // Requesting the password reset and expecting an exception
         assertThrows(LoginAlreadyExistsException.class, () -> authenticationService.signup(data));
 
         // Verifying if the methods were called
-        verify(userRepository, times(1)).existsByLogin(data.login());
+        verify(userRepository, times(1)).existsByUsername(data.username());
         verifyNoMoreInteractions(userRepository);
     }
 
     @Test
     public void testSignupUserEmailAlreadyExists() {
-        SignupDTO data = new SignupDTO("login_test", "PasswordA12@", "test@test.com", LocalDate.now(), "1234567890");
+        SignupDTO data = new SignupDTO("login_test", "PasswordA12@", "test@test.com");
 
         // Mocking the behavior of the methods that will be called in the service method
-        when(userRepository.existsByLogin(data.login())).thenReturn(false);
+        when(userRepository.existsByUsername(data.username())).thenReturn(false);
         when(userRepository.existsByEmail(data.email())).thenReturn(true);
 
         // Requesting the password reset and expecting an exception
         assertThrows(EmailAlreadyExistsException.class, () -> authenticationService.signup(data));
 
         // Verifying if the methods were called
-        verify(userRepository, times(1)).existsByLogin(data.login());
+        verify(userRepository, times(1)).existsByUsername(data.username());
         verify(userRepository, times(1)).existsByEmail(data.email());
         verifyNoMoreInteractions(userRepository);
     }
 
     @Test
     public void testSignupErrorSendingEmail() throws MessagingException {
-        SignupDTO data = new SignupDTO("login_test", "PasswordA12@", "test@test.com",
-                LocalDate.parse("2000-01-01"), "1234567890");
+        SignupDTO data = new SignupDTO("login_test", "PasswordA12@", "test@test.com");
 
         // Mocking the behavior of the methods that will be called in the service method
-        when(userRepository.existsByLogin(data.login())).thenReturn(false);
+        when(userRepository.existsByUsername(data.username())).thenReturn(false);
         when(userRepository.existsByEmail(data.email())).thenReturn(false);
         when(otpUtil.generateOtp()).thenReturn(new OneTimePassword("123456", LocalDateTime.now()));
 
@@ -103,7 +101,7 @@ public class AuthenticationServiceTest {
         assertThrows(ResponseStatusException.class, () -> authenticationService.signup(data));
 
         // Verifying if the methods were called
-        verify(userRepository, times(1)).existsByLogin(data.login());
+        verify(userRepository, times(1)).existsByUsername(data.username());
         verify(userRepository, times(1)).existsByEmail(data.email());
         verify(emailUtil, times(1)).sendOtpEmail(anyString(), anyString());
         verifyNoMoreInteractions(userRepository, emailUtil);
@@ -111,10 +109,10 @@ public class AuthenticationServiceTest {
 
     @Test
     public void testSignupSuccess() throws MessagingException {
-        SignupDTO data = new SignupDTO("login_test", "PasswordA12@", "test@test.com", LocalDate.now(), "1234567890");
+        SignupDTO data = new SignupDTO("login_test", "PasswordA12@", "test@test.com");
 
         // Mocking the behavior of the methods that will be called in the service method
-        when(userRepository.existsByLogin(data.login())).thenReturn(false);
+        when(userRepository.existsByUsername(data.username())).thenReturn(false);
         when(userRepository.existsByEmail(data.email())).thenReturn(false);
         doNothing().when(emailUtil).sendOtpEmail(anyString(), anyString());
         when(otpUtil.generateOtp()).thenReturn(new OneTimePassword("123456", LocalDateTime.now()));
@@ -123,7 +121,7 @@ public class AuthenticationServiceTest {
         authenticationService.signup(data);
 
         // Verifying if the methods were called
-        verify(userRepository, times(1)).existsByLogin(data.login());
+        verify(userRepository, times(1)).existsByUsername(data.username());
         verify(userRepository, times(1)).existsByEmail(data.email());
         verify(emailUtil, times(1)).sendOtpEmail(anyString(), anyString());
         verify(userRepository, times(1)).save(any(User.class));

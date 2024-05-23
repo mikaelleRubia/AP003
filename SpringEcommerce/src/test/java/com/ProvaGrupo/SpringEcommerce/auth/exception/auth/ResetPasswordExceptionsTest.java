@@ -11,11 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import com.ProvaGrupo.SpringEcommerce.auth.exception.RestErrorMessage;
-<<<<<<< HEAD
-import com.ProvaGrupo.SpringEcommerce.auth.exception.domain.reset.password.MissingArgumentsToResetPasswordException;
-=======
 import com.ProvaGrupo.SpringEcommerce.auth.exception.domain.reset.password.MissArgsResetPassException;
->>>>>>> origin/feature_david
 import com.ProvaGrupo.SpringEcommerce.auth.exception.domain.reset.password.PasswordsDoNotMatchException;
 import com.ProvaGrupo.SpringEcommerce.auth.exception.handler.ResetPasswordExceptionsHandler;
 
@@ -33,17 +29,10 @@ public class ResetPasswordExceptionsTest {
     
     @Test
     public void testHandleMissingArgumentsToResetPasswordException() {
-<<<<<<< HEAD
-        MissingArgumentsToResetPasswordException missingArgumentsToResetPasswordException = new MissingArgumentsToResetPasswordException();
+        MissArgsResetPassException missingArgumentsToResetPasswordException = new MissArgsResetPassException();
         String expectedMessage = bundle.getString("password_reset.arguments_missing");
 
         ResponseEntity<RestErrorMessage> responseEntity = resetPasswordExceptionsHandler.handleMissingArgumentsToResetPasswordException(missingArgumentsToResetPasswordException);
-=======
-        MissArgsResetPassException missArgsResetPassException = new MissArgsResetPassException();
-        String expectedMessage = bundle.getString("password_reset.arguments_missing");
-
-        ResponseEntity<RestErrorMessage> responseEntity = resetPasswordExceptionsHandler.handleMissingArgumentsToResetPasswordException(missArgsResetPassException);
->>>>>>> origin/feature_david
 
         // Assert that the response status is BAD_REQUEST and the message is the expected one
         assertEquals(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());

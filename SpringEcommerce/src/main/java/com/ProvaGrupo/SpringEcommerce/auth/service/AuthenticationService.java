@@ -68,7 +68,7 @@ public class AuthenticationService {
         log.info("Received data to login");
 
         try {
-            var usernamePassword = new UsernamePasswordAuthenticationToken(data.login(), data.password());
+            var usernamePassword = new UsernamePasswordAuthenticationToken(data.username(), data.password());
             var auth = authenticationManager.authenticate(usernamePassword);
 
             var token = tokenService.generateToken((User) auth.getPrincipal());
@@ -100,8 +100,8 @@ public class AuthenticationService {
     public void signup(SignupDTO data) {
         log.info("Received data to signup");
 
-        if (userRepository.existsByLogin(data.login())) {
-            throw new LoginAlreadyExistsException(data.login());
+        if (userRepository.existsByUsername(data.username())) {
+            throw new LoginAlreadyExistsException(data.username());
         }
 
         if (userRepository.existsByEmail(data.email())) {
@@ -120,16 +120,14 @@ public class AuthenticationService {
         String encryptedPassword = new BCryptPasswordEncoder().encode(data.password());
 
         User user = User.builder()
-                .login(data.login())
+                .username(data.username())
                 .password(encryptedPassword)
                 .email(data.email())
-                .birthDate(data.birthDate())
-                .mobilePhone(data.mobilePhone())
                 .role(UserRole.USER)
                 .otp(oneTimePassword)
                 .build();
 
-        log.info("New user created: {}", data.login());
+        log.info("New user created: {}", data.username());
 
         userRepository.save(user);
     }
@@ -148,7 +146,7 @@ public class AuthenticationService {
 
         userRepository.findByEmail(email)
                 .ifPresentOrElse(user -> {
-                    log.info("User found: {}", user.getLogin());
+                    log.info("User found: {}", user.getUsername());
                     if (user.isEnabled()) {
                         throw new UserAlreadyVerifiedException();
                     }
@@ -179,7 +177,7 @@ public class AuthenticationService {
 
         userRepository.findByEmail(email)
                 .ifPresentOrElse(user -> {
-                    log.info("User found: {}", user.getLogin());
+                    log.info("User found: {}", user.getUsername());
                     if (user.isEnabled()) {
                         throw new UserAlreadyVerifiedException();
                     }

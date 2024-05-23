@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.ProvaGrupo.SpringEcommerce.auth.exception.domain.authentication.InvalidOtpException;
-import com.ProvaGrupo.SpringEcommerce.auth.exception.domain.reset.password.MissingArgumentsToResetPasswordException;
+import com.ProvaGrupo.SpringEcommerce.auth.exception.domain.reset.password.MissArgsResetPassException;
 import com.ProvaGrupo.SpringEcommerce.auth.exception.domain.reset.password.PasswordsDoNotMatchException;
 import com.ProvaGrupo.SpringEcommerce.auth.exception.domain.user.UserNotEnabledException;
 import com.ProvaGrupo.SpringEcommerce.auth.exception.domain.user.UserNotFoundException;
@@ -82,7 +82,7 @@ public class PasswordResetService {
         log.info("Received data to reset a password");
 
         if (token == null || data == null || data.password() == null || data.confirmPassword() == null) {
-            throw new MissingArgumentsToResetPasswordException();
+            throw new MissArgsResetPassException();
         }
             
         var user = userRepository.findByEmail(email)

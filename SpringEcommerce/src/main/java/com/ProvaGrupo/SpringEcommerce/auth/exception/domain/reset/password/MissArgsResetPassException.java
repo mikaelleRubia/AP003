@@ -6,16 +6,16 @@ import java.util.ResourceBundle;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class MissingArgumentsToResetPasswordException extends RuntimeException{
+public class MissArgsResetPassException extends RuntimeException{
     
     private final static ResourceBundle bundle = ResourceBundle.getBundle("messages", Locale.getDefault());
 
-    public MissingArgumentsToResetPasswordException() {
+    public MissArgsResetPassException() {
         super(bundle.getString("password_reset.arguments_missing"));
         log.error(bundle.getString("password_reset.arguments_missing"));
     }
     
-    public MissingArgumentsToResetPasswordException(Throwable cause) {
+    public MissArgsResetPassException(Throwable cause) {
         super(bundle.getString("password_reset.arguments_missing"), cause);
         log.error(bundle.getString("password_reset.arguments_missing"), cause);
     }

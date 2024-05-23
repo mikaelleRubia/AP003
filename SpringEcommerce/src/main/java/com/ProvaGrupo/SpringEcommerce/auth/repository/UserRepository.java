@@ -13,12 +13,12 @@ import com.ProvaGrupo.SpringEcommerce.auth.model.User;
 public interface UserRepository extends JpaRepository<User, Long>{
 
     /**
-     * Find a user by login.
+     * Find a user by username.
      * 
-     * @param login The login of the user.
+     * @param username The username of the user.
      * @return The UserDetails object of the user.
      */
-    UserDetails findByLogin(String login);
+    UserDetails findByUsername(String username);
 
     /**
      * Find a user by email.
@@ -29,11 +29,11 @@ public interface UserRepository extends JpaRepository<User, Long>{
     Optional<User> findByEmail(String email);
 
     /**
-     * Check if a user with the given login exists in the database.
+     * Check if a user with the given username exists in the database.
      * 
-     * @param login The login of the user.
+     * @param username The username of the user.
      */
-    boolean existsByLogin(String login);
+    boolean existsByUsername(String username);
 
     /**
      * Check if a user with the given email exists in the database.

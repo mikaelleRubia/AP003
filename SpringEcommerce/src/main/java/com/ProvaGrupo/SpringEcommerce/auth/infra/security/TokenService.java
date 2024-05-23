@@ -46,7 +46,7 @@ public class TokenService {
             
             String token = JWT.create()
                     .withIssuer("auth-service")
-                    .withSubject(user.getLogin())
+                    .withSubject(user.getUsername())
                     .withExpiresAt(now.plusSeconds(EXPIRATION_TIME))
                     .sign(algorithm);
             return token;

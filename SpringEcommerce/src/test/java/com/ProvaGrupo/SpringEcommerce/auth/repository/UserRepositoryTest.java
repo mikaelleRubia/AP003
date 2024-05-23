@@ -32,25 +32,25 @@ public class UserRepositoryTest {
         entityManager.clear();
 
         user = User.builder()
-            .login(faker.lorem().characters(5, 15))
+            .username(faker.lorem().characters(5, 15))
             .email(faker.internet().emailAddress())
             .password(faker.lorem().characters(10, 15) + "A1#")
             .build();
     }
 
     @Test
-    public void whenFindByLogin_thenReturnUser() {
+    public void whenFindByUsername_thenReturnUser() {
         User savedUser = entityManager.persistAndFlush(user);
 
-        UserDetails foundUser = userRepository.findByLogin(savedUser.getLogin());
+        UserDetails foundUser = userRepository.findByUsername(savedUser.getUsername());
 
         assertThat(foundUser).isNotNull();
-        assertThat(foundUser.getUsername()).isEqualTo(savedUser.getLogin());
+        assertThat(foundUser.getUsername()).isEqualTo(savedUser.getUsername());
     }
 
     @Test
-    public void whenNotFindByLogin_thenReturnNull() {
-        UserDetails foundUser = userRepository.findByLogin(faker.name().username());
+    public void whenNotFindByUsername_thenReturnNull() {
+        UserDetails foundUser = userRepository.findByUsername(faker.name().username());
 
         assertThat(foundUser).isNull();
     }
@@ -73,17 +73,17 @@ public class UserRepositoryTest {
     }
 
     @Test
-    public void whenExistsByLogin_thenReturnTrue() {
+    public void whenExistsByUsername_thenReturnTrue() {
         User savedUser = entityManager.persistAndFlush(user);
 
-        boolean exists = userRepository.existsByLogin(savedUser.getLogin());
+        boolean exists = userRepository.existsByUsername(savedUser.getUsername());
 
         assertThat(exists).isTrue();
     }
 
     @Test
-    public void whenNotExistsByLogin_thenReturnFalse() {
-        boolean exists = userRepository.existsByLogin(faker.name().username());
+    public void whenNotExistsByUsername_thenReturnFalse() {
+        boolean exists = userRepository.existsByUsername(faker.name().username());
 
         assertThat(exists).isFalse();
     }

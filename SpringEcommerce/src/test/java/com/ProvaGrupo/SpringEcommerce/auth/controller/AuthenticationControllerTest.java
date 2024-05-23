@@ -1,13 +1,11 @@
 package com.ProvaGrupo.SpringEcommerce.auth.controller;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.time.LocalDate;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,10 +39,10 @@ public class AuthenticationControllerTest {
 
     @Test
     public void testLogin() throws Exception {
-        String login = faker.lorem().characters(5, 15); // valid login length is between 5 and 15 characters
+        String username = faker.lorem().characters(5, 15); // valid login length is between 5 and 15 characters
         String password = faker.lorem().characters(10, 15) + "A1#";
 
-        LoginDTO loginDTO = new LoginDTO(login, password);
+        LoginDTO loginDTO = new LoginDTO(username, password);
         LoginResponseDTO loginResponseDTO = new LoginResponseDTO("token");
 
         when(authService.login(loginDTO)).thenReturn(loginResponseDTO);
@@ -65,13 +63,11 @@ public class AuthenticationControllerTest {
 
     @Test
     public void testSignup() throws Exception {
-        String login = faker.lorem().characters(5, 15);
+        String username = faker.lorem().characters(5, 15);
         String password = faker.lorem().characters(10, 15) + "A1#";
         String email = faker.internet().emailAddress();
-        LocalDate birthDate = LocalDate.now().minusYears(18);
-        String mobilePhone = faker.phoneNumber().cellPhone();
 
-        SignupDTO signupDTO = new SignupDTO(login, password, email, birthDate, mobilePhone);
+        SignupDTO signupDTO = new SignupDTO(username, password, email);
 
         mockMvc.perform(post("/auth/signup")
                 .contentType(MediaType.APPLICATION_JSON)

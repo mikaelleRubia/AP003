@@ -5,6 +5,6 @@ package com.ProvaGrupo.SpringEcommerce.auth.model.dto.authentication;
  * It is used to transfer data between the controller and the service.
  * @see LoginResponseDTO
  */
-public record LoginDTO(String login, String password) {
+public record LoginDTO(String username, String password) {
     
 }

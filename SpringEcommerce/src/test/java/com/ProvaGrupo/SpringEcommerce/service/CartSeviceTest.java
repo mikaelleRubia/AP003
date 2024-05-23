@@ -1,19 +1,12 @@
 package com.ProvaGrupo.SpringEcommerce.service;
 
-import com.ProvaGrupo.SpringEcommerce.exception.SpringStoreException;
-import com.ProvaGrupo.SpringEcommerce.model.*;
-import com.ProvaGrupo.SpringEcommerce.repository.CartRepository;
-import com.ProvaGrupo.SpringEcommerce.repository.ProductRepository;
-import com.ProvaGrupo.SpringEcommerce.repository.ShoppingCartItemRepository;
-import com.github.javafaker.Faker;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -21,10 +14,27 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.ProvaGrupo.SpringEcommerce.auth.model.User;
+import com.ProvaGrupo.SpringEcommerce.auth.service.AuthorizationService;
+import com.ProvaGrupo.SpringEcommerce.exception.SpringStoreException;
+import com.ProvaGrupo.SpringEcommerce.model.Category;
+import com.ProvaGrupo.SpringEcommerce.model.Product;
+import com.ProvaGrupo.SpringEcommerce.model.ShoppingCart;
+import com.ProvaGrupo.SpringEcommerce.model.ShoppingCartItem;
+import com.ProvaGrupo.SpringEcommerce.repository.CartRepository;
+import com.ProvaGrupo.SpringEcommerce.repository.ProductRepository;
+import com.ProvaGrupo.SpringEcommerce.repository.ShoppingCartItemRepository;
+import com.github.javafaker.Faker;
 
 @ExtendWith(MockitoExtension.class)
 
@@ -34,7 +44,7 @@ public class CartSeviceTest {
     private ProductRepository productRepository;
 
     @Mock
-    private AuthService authService;
+    private AuthorizationService authService;
 
     @Mock
     private CartRepository cartRepository;
@@ -49,7 +59,7 @@ public class CartSeviceTest {
     private static final Logger log = LoggerFactory.getLogger(CartSeviceTest.class);
 
     private Product product;
-    private Users user;
+    private User user;
     private ShoppingCart cart;
     private ShoppingCartItem shoppingCartItem;
 
@@ -74,9 +84,12 @@ public class CartSeviceTest {
 
         String password = faker.internet().password(8, 16, true, true, true);
 
-        user = Users.builder().id(1L).email(faker.internet().emailAddress())
-                .username(faker.regexify("[a-zA-Z0-9]{5,16}")).password(password).passwordConfirmation(password)
-                .enabled(true).build();
+        user = User.builder()
+                .username(faker.name().username())
+                .password(password)
+                .email(faker.internet().emailAddress())
+                .enabled(true)
+                .build();
 
         cart = ShoppingCart.builder()
                 .username(user.getUsername())

@@ -1,6 +1,5 @@
 package com.ProvaGrupo.SpringEcommerce.auth.model;
 
-import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Set;
 
@@ -19,8 +18,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Past;
-import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -31,7 +28,7 @@ import lombok.NoArgsConstructor;
  * A user entity that implements the UserDetails interface to be used by Spring Security. 
  * The entity has a OneTimePassword embedded class to store the OTP and its generation time.
  * 
- * Each user has an id, a login, a password, an email, a birth date, a mobile phone, a role and a set of wishlists,
+ * Each user has an id, a username, a password, an email, a birth date, a mobile phone, a role and a set of wishlists,
  * 
  * @see Wishlist 
  * @see OneTimePassword 
@@ -59,9 +56,9 @@ public class User implements UserDetails {
      * It must have between 5 and 15 characters.
      */
     @NotBlank(message = "Username cannot be blank")
-    @Size(min = 5, max = 15, message = "Username must be between 5 and 15 characters long")
+    @Size(min = 5, max = 16, message = "Username must be between 5 and 16 characters long")
     @Column(unique = true, nullable = false)
-    private String login;
+    private String username;
 
     /**
      * The password of the user. It must be valid according to the ValidPassword annotation.
@@ -77,18 +74,6 @@ public class User implements UserDetails {
     @Email(message = "Email should be valid")
     @Column(unique = true, nullable = false)
     private String email;
-
-    /**
-     * The birth date of the user. It must be in the past.
-     */
-    @Past(message = "User birth date must be in the past")
-    private LocalDate birthDate;
-
-    /**
-     * The mobile phone of the user. It must have 11 digits.
-     */
-    @Pattern(regexp = "^[0-9]{11}$", message = "User mobile phone must have 11 digits")
-    private String mobilePhone;
 
     /**
      * The wishlists of the user. It is a set of wishlists.
@@ -118,20 +103,18 @@ public class User implements UserDetails {
     /**
      * Constructor for the User entity.
      *
-     * @param login login data of the user
+     * @param username username data of the user
      * @param password password data of the user
      * @param email email data of the user
      * @param role role data of the user
      * @param birthDate birth date data of the user
      * @param mobilePhone mobile phone data of the user
      */
-    public User(String login, String password, String email, UserRole role, LocalDate birthDate, String mobilePhone) {
-        this.login = login;
+    public User(String username, String password, String email, UserRole role) {
+        this.username = username;
         this.password = password;
         this.email = email;
         this.role = role;
-        this.birthDate = birthDate;
-        this.mobilePhone = mobilePhone;
     }
 
     /**
@@ -155,7 +138,7 @@ public class User implements UserDetails {
      */
     @Override
     public String getUsername() {
-        return this.login;
+        return this.username;
     }
     
     /**

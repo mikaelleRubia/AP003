@@ -25,13 +25,13 @@ public class UserValidatorTest {
 
     private Faker faker = new Faker();
 
-    String validLogin = "validLogin";
+    String validUsername = "validUsername";
     String validPassword = faker.lorem().characters(10, 15) + "A1#";
     String validEmail = faker.internet().emailAddress();
     LocalDate validBirthDate = LocalDate.now().minusYears(20);
     String validMobilePhone = faker.phoneNumber().cellPhone();
 
-    String invalidLogin = "abc";
+    String invalidUsername = "abc";
     String invalidPassword = faker.lorem().characters(10, 15); // no uppercase, no number, no special character
     String invalidEmail = "invalidEmail";
     LocalDate invalidBirthDate = LocalDate.now().plusDays(1); // future date
@@ -46,13 +46,13 @@ public class UserValidatorTest {
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         validator = factory.getValidator();
 
-        validLogin = "validLogin";
+        validUsername = "validUsername";
         validPassword = faker.lorem().characters(10, 15) + "A1#";
         validEmail = faker.internet().emailAddress();
         validBirthDate = LocalDate.now().minusYears(20);
         validMobilePhone = faker.number().digits(11);
 
-        invalidLogin = "abc";
+        invalidUsername = "abc";
         invalidPassword = faker.lorem().characters(10, 15); // no uppercase, no number, no special character
         invalidEmail = "invalidEmail";
         invalidBirthDate = LocalDate.now().plusDays(1); // future date
@@ -62,12 +62,10 @@ public class UserValidatorTest {
     @Test
     public void testValidUser() {
         User user = User.builder()
-                .login(validLogin)
+                .username(validUsername)
                 .password(validPassword)
                 .email(validEmail)
                 .role(UserRole.USER)
-                .birthDate(validBirthDate)
-                .mobilePhone(validMobilePhone)
                 .build();
 
         assertTrue(validator.validate(user).isEmpty());
@@ -76,12 +74,10 @@ public class UserValidatorTest {
     @Test
     public void testInvalidUsername() {
         User user = User.builder()
-                .login(invalidLogin)
+                .username(invalidUsername)
                 .password(validPassword)
                 .email(validEmail)
                 .role(UserRole.USER)
-                .birthDate(validBirthDate)
-                .mobilePhone(validMobilePhone)
                 .build();
 
         assertFalse(validator.validate(user).isEmpty());
@@ -90,42 +86,13 @@ public class UserValidatorTest {
     @Test
     public void testInvalidEmail() {
         User user = User.builder()
-                .login(validLogin)
+                .username(validUsername)
                 .password(validPassword)
                 .email(invalidEmail)
                 .role(UserRole.USER)
-                .birthDate(validBirthDate)
-                .mobilePhone(validMobilePhone)
                 .build();
 
         assertFalse(validator.validate(user).isEmpty());
     }
 
-    @Test
-    public void testInvalidBirthDate() {
-        User user = User.builder()
-                .login(validLogin)
-                .password(validPassword)
-                .email(validEmail)
-                .role(UserRole.USER)
-                .birthDate(invalidBirthDate)
-                .mobilePhone(validMobilePhone)
-                .build();
-
-        assertFalse(validator.validate(user).isEmpty());
-    }
-
-    @Test
-    public void testInvalidMobilePhone() {
-        User user = User.builder()
-                .login(validLogin)
-                .password(validPassword)
-                .email(validEmail)
-                .role(UserRole.USER)
-                .birthDate(validBirthDate)
-                .mobilePhone(invalidMobilePhone)
-                .build();
-
-        assertFalse(validator.validate(user).isEmpty());
-    }
 }

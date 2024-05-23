@@ -41,7 +41,7 @@ public class AuthorizationServiceTest {
         String username = "testUser";
         
         // Mocking the behavior of the UserRepository to return a user
-        when(userRepository.findByLogin(username)).thenReturn(userDetails);
+        when(userRepository.findByUsername(username)).thenReturn(userDetails);
 
         // Loading the user by username
         UserDetails result = authorizationService.loadUserByUsername(username);
@@ -55,7 +55,7 @@ public class AuthorizationServiceTest {
         String username = "testUser";
 
         // Mocking the behavior of the UserRepository to return null
-        when(userRepository.findByLogin(username)).thenReturn(null);
+        when(userRepository.findByUsername(username)).thenReturn(null);
 
         // Loading a user by username that does not exist and expecting an exception
         assertThrows(UsernameNotFoundException.class, () -> {

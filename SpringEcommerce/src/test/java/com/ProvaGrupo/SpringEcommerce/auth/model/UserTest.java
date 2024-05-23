@@ -3,7 +3,6 @@ package com.ProvaGrupo.SpringEcommerce.auth.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.time.LocalDate;
 import java.util.Collection;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -16,7 +15,7 @@ public class UserTest {
 
     @BeforeEach
     public void init() {
-        user = new User("testUser", "testPassword", "test@test.com", UserRole.USER, LocalDate.now().minusYears(20), "12345678901");
+        user = new User("testUser", "testPassword", "test@test.com", UserRole.USER);
     }
 
     @Test
