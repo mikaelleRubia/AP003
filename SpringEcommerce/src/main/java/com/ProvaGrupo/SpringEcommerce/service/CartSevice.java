@@ -7,6 +7,8 @@ import com.ProvaGrupo.SpringEcommerce.model.ShoppingCartItem;
 import com.ProvaGrupo.SpringEcommerce.model.Users;
 import com.ProvaGrupo.SpringEcommerce.repository.CartRepository;
 import com.ProvaGrupo.SpringEcommerce.repository.ProductRepository;
+import com.ProvaGrupo.SpringEcommerce.repository.ShoppingCartItemRepository;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,6 +29,10 @@ public class CartSevice {
     @Autowired
     private CartRepository cartRepository;
 
+    @Autowired
+    private ShoppingCartItemRepository shoppingCartItemRepository;
+
+    @Transactional
     public void addToCart(String sku){
         Product product = productRepository.findBySku(sku)
                 .orElseThrow(() -> new SpringStoreException("Product with SKU : " + sku + " not found"));
@@ -44,12 +50,24 @@ public class CartSevice {
                         return newCart;
                     });
 
-            ShoppingCartItem item = new ShoppingCartItem();
-            item.setName(product.getName());
-            item.setPrice(product.getPrice());
-            item.setShoppingCart(cart);
-            cart.getShoppingCartItems().add(item);
+            Optional<ShoppingCartItem> existingItem = shoppingCartItemRepository
+                    .findByShoppingCartIdAndProductId(cart.getId(), product.getId());
 
+            if (existingItem.isPresent()) {
+                ShoppingCartItem item = existingItem.get();
+                item.setPrice(product.getPrice());
+            }
+            else {
+                ShoppingCartItem newItem = ShoppingCartItem.builder()
+                        .name(product.getName())
+                        .price(product.getPrice())
+                        .shoppingCart(cart)
+                        .product(product)
+                        .build();
+
+                shoppingCartItemRepository.save(newItem);
+                cart.getShoppingCartItems().add(newItem);
+            }
             cart.setCartTotalPrice(cart.getShoppingCartItems().stream()
                     .map(ShoppingCartItem :: getPrice)
                     .reduce(BigDecimal.ZERO, BigDecimal :: add));

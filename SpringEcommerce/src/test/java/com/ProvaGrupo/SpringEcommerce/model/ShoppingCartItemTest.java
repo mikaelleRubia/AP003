@@ -32,7 +32,7 @@ public class ShoppingCartItemTest {
 
     @Test
     public void testValidShoppingCartItem(){
-        ShoppingCartItem item = new ShoppingCartItem(1L, faker.commerce().productName(), new BigDecimal(faker.random().nextDouble()).setScale(2,RoundingMode.HALF_UP), null);
+        ShoppingCartItem item = new ShoppingCartItem(1L, faker.commerce().productName(), new BigDecimal(faker.random().nextDouble()).setScale(2,RoundingMode.HALF_UP), null, null);
         Set<ConstraintViolation<ShoppingCartItem>> violations = validator.validate(item);
         log.info("--- Running ValidShoppingCartItem ---\nItem: {}\n", item);
         assertTrue(violations.isEmpty());
@@ -40,7 +40,7 @@ public class ShoppingCartItemTest {
 
     @Test
     public void testEmptyName(){
-        ShoppingCartItem item = new ShoppingCartItem(1L, "", new BigDecimal(faker.random().nextDouble()).setScale(2, RoundingMode.HALF_UP), null);
+        ShoppingCartItem item = new ShoppingCartItem(1L, "", new BigDecimal(faker.random().nextDouble()).setScale(2, RoundingMode.HALF_UP), null, null);
         Set<ConstraintViolation<ShoppingCartItem>> violations = validator.validate(item);
         log.info("--- Running EmptyName ---\nItem: {}", item);
         assertEquals(1, violations.size());
@@ -50,7 +50,7 @@ public class ShoppingCartItemTest {
 
     @Test
     public void testNegativeOrZeroPrice(){
-        ShoppingCartItem item = new ShoppingCartItem(1L, faker.commerce().productName(), new BigDecimal(faker.random().nextDouble()).setScale(2, RoundingMode.HALF_UP).subtract(BigDecimal.ONE), null);
+        ShoppingCartItem item = new ShoppingCartItem(1L, faker.commerce().productName(), new BigDecimal(faker.random().nextDouble()).setScale(2, RoundingMode.HALF_UP).subtract(BigDecimal.ONE), null, null);
         Set<ConstraintViolation<ShoppingCartItem>> violations = validator.validate(item);
         log.info("--- Running NegativeOrZeroPrice ---\nItem: {}", item);
         assertEquals(1, violations.size());
@@ -60,7 +60,7 @@ public class ShoppingCartItemTest {
 
     @Test
     public void testNullPrice(){
-        ShoppingCartItem item = new ShoppingCartItem(1L, faker.commerce().productName(), null, null);
+        ShoppingCartItem item = new ShoppingCartItem(1L, faker.commerce().productName(), null, null, null);
         Set<ConstraintViolation<ShoppingCartItem>> violations = validator.validate(item);
         log.info("--- Running NullPrice ---\nItem: {}", item);
         assertEquals(1, violations.size());

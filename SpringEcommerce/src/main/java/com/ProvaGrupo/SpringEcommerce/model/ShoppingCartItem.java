@@ -29,4 +29,10 @@ public class ShoppingCartItem {
     @ManyToOne
     @JoinColumn(name = "shoppingCartId")
     private ShoppingCart shoppingCart;
+
+    @ToString.Exclude
+    @ManyToOne
+    @JoinColumn(name = "product_id", nullable = false)
+    private Product product;
+
 }

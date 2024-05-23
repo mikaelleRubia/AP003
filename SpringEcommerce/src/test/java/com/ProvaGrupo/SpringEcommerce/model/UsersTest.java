@@ -35,6 +35,7 @@ public class UsersTest {
 		user = Users.builder().id(1L).email(faker.internet().emailAddress())
 				.username(faker.regexify("[a-zA-Z0-9]{5,16}")).password(password).passwordConfirmation(password)
 				.enabled(true).build();
+
 	}
 	
 	// Some tests may fail because faker.internet().password() generates some
