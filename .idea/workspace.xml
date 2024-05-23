@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="7169e1b5-5e5d-4075-8116-552a6dae0be7" name="Changes" comment="&#10;update: fixing service and test with remove" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Ishinaru&quot;
+  }
+}</component>
+  <component name="GitToolBoxStore">
+    <option name="projectConfigVersion" value="5" />
+    <option name="recentBranches">
+      <RecentBranches>
+        <option name="branchesForRepo">
+          <list>
+            <RecentBranchesForRepo>
+              <option name="branches">
+                <list>
+                  <RecentBranch>
+                    <option name="branchName" value="feature_david" />
+                    <option name="lastUsedInstant" value="1715899049" />
+                  </RecentBranch>
+                  <RecentBranch>
+                    <option name="branchName" value="main" />
+                    <option name="lastUsedInstant" value="1715899048" />
+                  </RecentBranch>
+                </list>
+              </option>
+              <option name="repositoryRootUrl" value="file://$PROJECT_DIR$" />
+            </RecentBranchesForRepo>
+          </list>
+        </option>
+      </RecentBranches>
+    </option>
+  </component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/mikaelleRubia/AP003.git&quot;,
+    &quot;accountId&quot;: &quot;1e4108d8-69ab-4ae1-b4ac-e049367dd2d7&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
+  <component name="ProjectId" id="2gWpalWX7HapB0TDw0w0BjIAfRA" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "JUnit.CartRepositoryTest.testFindByIdNotFound.executor": "Run",
+    "JUnit.CartRepositoryTest.testFindByUsername.executor": "Run",
+    "JUnit.CartRepositoryTest.testFindByUsernameNotFound.executor": "Run",
+    "JUnit.CartRepositoryTest.testSaveAndDelete.executor": "Run",
+    "JUnit.CartRepositoryTest.testSaveAndFindById.executor": "Run",
+    "JUnit.CartRepositoryTest.testSaveWithItems.executor": "Run",
+    "JUnit.CartSeviceTest.executor": "Run",
+    "JUnit.CartSeviceTest.testAddToCartExistingCartUpdated.executor": "Run",
+    "JUnit.CartSeviceTest.testAddToCartNewCartCreated.executor": "Run",
+    "JUnit.CartSeviceTest.testAddToCartProductNotFound.executor": "Run",
+    "JUnit.CartSeviceTest.testRemoveItemFromCart.executor": "Run",
+    "JUnit.CartSeviceTest.testUpdateItemQuantityInCart.executor": "Run",
+    "JUnit.CartSeviceTest.testUpdateItemQuantityInCartCartNotFound.executor": "Run",
+    "JUnit.CartSeviceTest.testUpdateItemQuantityInCartProductNotFound.executor": "Run",
+    "JUnit.CartSeviceTest.testUpdateItemQuantityInCartUserNotAuthenticated.executor": "Run",
+    "JUnit.ShoppingCartItemTest.executor": "Run",
+    "JUnit.ShoppingCartItemTest.testEmptyName.executor": "Run",
+    "JUnit.ShoppingCartItemTest.testEmptyNameFromShoppingCartItem.executor": "Run",
+    "JUnit.ShoppingCartItemTest.testNegativeOrZeroPrice.executor": "Run",
+    "JUnit.ShoppingCartItemTest.testNullName.executor": "Run",
+    "JUnit.ShoppingCartItemTest.testNullPrice.executor": "Run",
+    "JUnit.ShoppingCartItemTest.testValidShoppingCartItem.executor": "Run",
+    "JUnit.ShoppingCartTest.testEmptyUsername.executor": "Run",
+    "JUnit.ShoppingCartTest.testMaxUsername.executor": "Run",
+    "JUnit.ShoppingCartTest.testMinNumberOfItems.executor": "Run",
+    "JUnit.ShoppingCartTest.testMinUsername.executor": "Run",
+    "JUnit.ShoppingCartTest.testNegativeCartTotalPrice.executor": "Run",
+    "JUnit.ShoppingCartTest.testNullCartTotalPrice.executor": "Run",
+    "JUnit.ShoppingCartTest.testValidShoppingCart.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "feature__david",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/david/OneDrive/Área de Trabalho/Programaçao/residencia-avancado/240076-david-vinicius-pereira-lima/java-avancado/AP003",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.ProvaGrupo.SpringEcommerce.auth.exception.domain.reset.password" />
+      <recent name="com.ProvaGrupo.SpringEcommerce.repository" />
+      <recent name="com.ProvaGrupo.SpringEcommerce.service" />
+      <recent name="com.ProvaGrupo.SpringEcommerce.exception" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\david\OneDrive\Área de Trabalho\Programaçao\residencia-avancado\240076-david-vinicius-pereira-lima\java-avancado\AP003\SpringEcommerce\src\test\java\resources" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.ProvaGrupo.SpringEcommerce.service" />
+    </key>
+  </component>
+  <component name="RunManager" selected="JUnit.CartSeviceTest.testClearCart">
+    <configuration name="CartSeviceTest.testClearCart" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="SpringEcommerce" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.ProvaGrupo.SpringEcommerce.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.ProvaGrupo.SpringEcommerce.service" />
+      <option name="MAIN_CLASS_NAME" value="com.ProvaGrupo.SpringEcommerce.service.CartSeviceTest" />
+      <option name="METHOD_NAME" value="testClearCart" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CartSeviceTest.testUpdateItemQuantityInCart" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="SpringEcommerce" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.ProvaGrupo.SpringEcommerce.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.ProvaGrupo.SpringEcommerce.service" />
+      <option name="MAIN_CLASS_NAME" value="com.ProvaGrupo.SpringEcommerce.service.CartSeviceTest" />
+      <option name="METHOD_NAME" value="testUpdateItemQuantityInCart" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CartSeviceTest.testUpdateItemQuantityInCartCartNotFound" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="SpringEcommerce" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.ProvaGrupo.SpringEcommerce.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.ProvaGrupo.SpringEcommerce.service" />
+      <option name="MAIN_CLASS_NAME" value="com.ProvaGrupo.SpringEcommerce.service.CartSeviceTest" />
+      <option name="METHOD_NAME" value="testUpdateItemQuantityInCartCartNotFound" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CartSeviceTest.testUpdateItemQuantityInCartProductNotFound" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="SpringEcommerce" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.ProvaGrupo.SpringEcommerce.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.ProvaGrupo.SpringEcommerce.service" />
+      <option name="MAIN_CLASS_NAME" value="com.ProvaGrupo.SpringEcommerce.service.CartSeviceTest" />
+      <option name="METHOD_NAME" value="testUpdateItemQuantityInCartProductNotFound" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CartSeviceTest.testUpdateItemQuantityInCartUserNotAuthenticated" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="SpringEcommerce" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.ProvaGrupo.SpringEcommerce.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.ProvaGrupo.SpringEcommerce.service" />
+      <option name="MAIN_CLASS_NAME" value="com.ProvaGrupo.SpringEcommerce.service.CartSeviceTest" />
+      <option name="METHOD_NAME" value="testUpdateItemQuantityInCartUserNotAuthenticated" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SpringEcommerceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+      <module name="SpringEcommerce" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.ProvaGrupo.SpringEcommerce.SpringEcommerceApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.CartSeviceTest.testClearCart" />
+        <item itemvalue="JUnit.CartSeviceTest.testUpdateItemQuantityInCart" />
+        <item itemvalue="JUnit.CartSeviceTest.testUpdateItemQuantityInCartCartNotFound" />
+        <item itemvalue="JUnit.CartSeviceTest.testUpdateItemQuantityInCartUserNotAuthenticated" />
+        <item itemvalue="JUnit.CartSeviceTest.testUpdateItemQuantityInCartProductNotFound" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9f38398b9061-18abd8497189-intellij.indexing.shared.core-IU-241.14494.240" />
+        <option value="bundled-js-predefined-1d06a55b98c1-74d2a5396914-JavaScript-IU-241.14494.240" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="7169e1b5-5e5d-4075-8116-552a6dae0be7" name="Changes" comment="" />
+      <created>1715823253582</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1715823253582</updated>
+      <workItem from="1715823254657" duration="92000" />
+      <workItem from="1715898995693" duration="3735000" />
+      <workItem from="1715920399143" duration="6924000" />
+      <workItem from="1715951979013" duration="18003000" />
+      <workItem from="1716301874428" duration="11692000" />
+      <workItem from="1716389771855" duration="30555000" />
+      <workItem from="1716498158352" duration="2353000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/feature_david" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="&#10;creating ShoppingCartItemTest" />
+    <MESSAGE value="&#10;creating ShoppingCartItemTest" />
+    <MESSAGE value="&#10;update: fixing service and test with remove" />
+    <option name="LAST_COMMIT_MESSAGE" value="&#10;update: fixing service and test with remove" />
+  </component>
+</project>

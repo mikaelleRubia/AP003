@@ -3,6 +3,7 @@ package com.ProvaGrupo.SpringEcommerce.service;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -208,5 +209,138 @@ public class CartSeviceTest {
         verify(cartRepository, times(1)).save(cart);
 
         log.info("Completed test: testRemoveItemFromCart");
+    }
+
+    @Test
+    public void testUpdateItemQuantityInCart(){
+        log.info("--- Running UpdateItemQuantityInCart ---\n");
+        when(productRepository.findBySku(anyString())).thenReturn(Optional.of(product));
+        when(authService.getCurrentUser()).thenReturn(Optional.of(user));
+        when(cartRepository.findByUsername(anyString())).thenReturn(Optional.of(cart));
+        when(shoppingCartItemRepository.findByShoppingCartIdAndProductId(cart.getId(), product.getId()))
+                .thenReturn(Optional.of(shoppingCartItem));
+
+        int newQuantity = 3;
+        log.debug("Updating quantity of product in the cart");
+        cartSevice.updateItemQuantityInCart(product.getSku(), newQuantity);
+
+        ArgumentCaptor<ShoppingCartItem> itemCaptor = ArgumentCaptor.forClass(ShoppingCartItem.class);
+        verify(shoppingCartItemRepository, times(newQuantity)).save(itemCaptor.capture());
+
+        List<ShoppingCartItem> capturedItems = itemCaptor.getAllValues();
+        assertEquals(newQuantity, capturedItems.size(), "The number of items saved should match the new quantity");
+
+        ArgumentCaptor<ShoppingCart> cartCaptor = ArgumentCaptor.forClass(ShoppingCart.class);
+        verify(cartRepository, times(1)).save(cartCaptor.capture());
+
+        ShoppingCart savedCart = cartCaptor.getValue();
+
+        log.info("Verifying that the cart was updated and saved");
+        log.info("Saved cart: {}", savedCart);
+
+        assertEquals(newQuantity, savedCart.getNumberOfItems(), "The cart should have the new quantity of items");
+        assertEquals(product.getPrice().multiply(BigDecimal.valueOf(newQuantity)), savedCart.getCartTotalPrice(), "The cart total price should match the new quantity times the product price");
+
+        log.info("Completed test: UpdateItemQuantityInCart");
+    }
+
+    @Test
+    public void testUpdateItemQuantityInCartProductNotFound() {
+        log.info("--- Running UpdateItemQuantityInCartProductNotFound ---\n");
+        when(productRepository.findBySku(anyString())).thenReturn(Optional.empty());
+
+        SpringStoreException exception = assertThrows(SpringStoreException.class, () -> {
+            log.debug("Attempting to update quantity of a non-existent product in cart");
+            cartSevice.updateItemQuantityInCart("non-existent-sku", 2);
+        });
+
+        log.error("Product not found exception thrown: {}", exception.getMessage());
+        assertEquals("Product with SKU : non-existent-sku not found", exception.getMessage());
+
+        log.info("Completed test: UpdateItemQuantityInCartProductNotFound");
+    }
+
+    @Test
+    public void testUpdateItemQuantityInCartInvalidQuantity() {
+        log.info("--- Running UpdateItemQuantityInCartInvalidQuantity ---\n");
+        when(productRepository.findBySku(anyString())).thenReturn(Optional.of(product));
+        when(authService.getCurrentUser()).thenReturn(Optional.of(user));
+        when(cartRepository.findByUsername(anyString())).thenReturn(Optional.of(cart));
+        when(shoppingCartItemRepository.findByShoppingCartIdAndProductId(anyLong(), anyLong()))
+                .thenReturn(Optional.of(shoppingCartItem));
+
+        SpringStoreException exception = assertThrows(SpringStoreException.class, () -> {
+            log.debug("Attempting to update item quantity to an invalid value");
+            cartSevice.updateItemQuantityInCart(product.getSku(), 0);
+        });
+
+        log.error("Invalid quantity exception thrown: {}", exception.getMessage());
+        assertEquals("Quantity must be greater than zero", exception.getMessage());
+
+        log.info("Completed test: UpdateItemQuantityInCartInvalidQuantity");
+    }
+
+    @Test
+    public void testUpdateItemQuantityInCartUserNotAuthenticated() {
+        log.info("--- Running UpdateItemQuantityInCartUserNotAuthenticated ---\n");
+        when(productRepository.findBySku(anyString())).thenReturn(Optional.of(product));
+        when(authService.getCurrentUser()).thenReturn(Optional.empty());
+
+        SpringStoreException exception = assertThrows(SpringStoreException.class, () -> {
+            log.debug("Attempting to update item quantity without authenticated user");
+            cartSevice.updateItemQuantityInCart(product.getSku(), 2);
+        });
+
+        log.error("User not authenticated exception thrown: {}", exception.getMessage());
+        assertEquals("User isn't authenticated", exception.getMessage());
+
+        log.info("Completed test: UpdateItemQuantityInCartUserNotAuthenticated");
+    }
+
+    @Test
+    public void testUpdateItemQuantityInCartCartNotFound() {
+        log.info("--- Running UpdateItemQuantityInCartCartNotFound ---\n");
+        when(productRepository.findBySku(anyString())).thenReturn(Optional.of(product));
+        when(authService.getCurrentUser()).thenReturn(Optional.of(user));
+        when(cartRepository.findByUsername(anyString())).thenReturn(Optional.empty());
+
+        SpringStoreException exception = assertThrows(SpringStoreException.class, () -> {
+            log.debug("Attempting to update item quantity without existing cart");
+            cartSevice.updateItemQuantityInCart(product.getSku(), 2);
+        });
+
+        log.error("Cart not found exception thrown: {}", exception.getMessage());
+        assertEquals("Cart not found for user: " + user.getUsername(), exception.getMessage());
+
+        log.info("Completed test: UpdateItemQuantityInCartCartNotFound");
+    }
+
+    @Test
+    public void testClearCart() {
+        log.info("--- Running ClearCart ---\n");
+
+        when(authService.getCurrentUser()).thenReturn(Optional.of(user));
+        when(cartRepository.findByUsername(anyString())).thenReturn(Optional.of(cart));
+
+        cart.getShoppingCartItems().add(shoppingCartItem);
+        cart.setCartTotalPrice(shoppingCartItem.getPrice());
+        cart.setNumberOfItems(1);
+
+        log.debug("Clearing the cart");
+        cartSevice.clearCart();
+
+        ArgumentCaptor<ShoppingCart> cartCaptor = ArgumentCaptor.forClass(ShoppingCart.class);
+        verify(cartRepository, times(1)).save(cartCaptor.capture());
+        ShoppingCart savedCart = cartCaptor.getValue();
+
+        log.info("Verifying that the cart was cleared and saved");
+        log.info("Saved cart: {}", savedCart);
+
+        assertNotNull(savedCart, "Saved cart shouldn't be null");
+        assertEquals(user.getUsername(), savedCart.getUsername(), "Cart's username should match the user's username");
+        assertEquals(0, savedCart.getNumberOfItems(), "Cart should have zero items");
+        assertEquals(BigDecimal.ZERO, savedCart.getCartTotalPrice(), "Cart's total price should be zero");
+
+        log.info("Completed test: testClearCart");
     }
 }
