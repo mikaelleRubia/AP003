@@ -22,7 +22,6 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -71,6 +70,11 @@ public class Product  {
 //    @NotNull(message = "Category ID is required")
 //    @Column(name = "category_id")
 //    private Long categoryId;
+//    
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    private List<ProductAttribute> productAttributeList;
 
     @Min(value = 0, message = "Quantity cannot be negative")
     private Integer quantity;
@@ -84,7 +88,7 @@ public class Product  {
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<ProductRating> productRating;
 
-	public Product( String name, String description, BigDecimal price, String sku, String imageUrl, Category category, Integer quantity, String manufacturer,
+	public Product( String name, String description, BigDecimal price, String sku, String imageUrl, Category category, List<ProductAttribute> productAttributeList, Integer quantity, String manufacturer,
 			boolean featured, List<ProductRating> productRating) {
 		super();
 		this.name = name;
@@ -93,9 +97,14 @@ public class Product  {
 		this.sku = sku;
 		this.imageUrl = imageUrl;
 		this.category = category;
+		this.productAttributeList = productAttributeList;
 		this.quantity = quantity;
 		this.manufacturer = manufacturer;
 		this.featured = featured;
 		this.productRating = productRating;
 	}
+	
+    public boolean getFeatured() {
+        return featured;
+    }
 }

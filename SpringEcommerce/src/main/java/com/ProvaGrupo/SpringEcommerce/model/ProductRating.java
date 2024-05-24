@@ -13,12 +13,16 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+/**
+ * Represents a rating given by a user to a product.
+ * Each product rating has a unique identifier, rating stars, product ID, review (optional), and user name.
+ */
 
 @Data
 @AllArgsConstructor
@@ -36,19 +40,16 @@ public class ProductRating {
     @Max(value = 5, message = "Product rating must be between 1 and 5")
     private BigDecimal ratingStars;
     
-    @NotNull(message = "Product id is required")
-    private Long productId;
-    
-//    @NotBlank(message = "Elastic Search product id is required")
-//    private String elasticSearchProductId;
-    
     private String review;
     
     @NotBlank(message = "User name is required")
     @Size(min = 5, max = 16, message = "User name needs to be at least 5 characters long and at most 16 characters long")
     private String userName;
-    
+
+
+    @NotNull(message = "Product is required")
     @ManyToOne
-    @JoinColumn(name = "Product_id_class", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "product_id_class")
     private Product product;
+    
 }

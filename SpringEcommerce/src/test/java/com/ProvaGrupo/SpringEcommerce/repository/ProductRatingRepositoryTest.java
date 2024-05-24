@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
+import com.ProvaGrupo.SpringEcommerce.model.Category;
+import com.ProvaGrupo.SpringEcommerce.model.Product;
 import com.ProvaGrupo.SpringEcommerce.model.ProductRating;
 import com.github.javafaker.Faker;
 
@@ -31,16 +33,39 @@ public class ProductRatingRepositoryTest {
     private ProductRating productRating;
     
     private Faker faker;
+    
+    private Product product;
+    
+    private Category category;
 
     @BeforeEach
     void setUp() throws Exception {
         log.info("Setting up test data");
 
-    	faker = new Faker();
-    	
-    	productRating = new ProductRating();
-        productRating.setRatingStars(new BigDecimal(faker.number().randomDouble(1, 1, 5)));
-        productRating.setProductId(3L);
+        faker = new Faker();
+        
+        // Initialize and save the Category entity
+        category = new Category();
+        category.setName(faker.commerce().department());
+        category = testEntityManager.persistAndFlush(category);
+        
+        // Initialize and save the Product entity
+        product = new Product();
+        product.setName(faker.commerce().productName());
+        product.setDescription(faker.lorem().sentence());
+        product.setPrice(BigDecimal.valueOf(faker.number().randomDouble(2, 1, 100)));
+        product.setSku(faker.regexify("[A-Z0-9_-]{2,50}"));
+        product.setImageUrl("https://s2-techtudo.glbimg.com/SSAPhiaAy_zLTOu3Tr3ZKu2H5vg=/0x0:1024x609/888x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_08fbf48bc0524877943fe86e43087e7a/internal_photos/bs/2022/c/u/15eppqSmeTdHkoAKM0Uw/dall-e-2.jpg");
+        product.setCategory(category);
+        product.setQuantity(faker.number().numberBetween(1, 100));
+        product.setManufacturer(faker.company().name());
+        product.setFeatured(faker.bool().bool());
+        product = testEntityManager.persistAndFlush(product);
+        
+        // Initialize the ProductRating entity and set its product to the saved product
+        productRating = new ProductRating();
+        productRating.setRatingStars(BigDecimal.valueOf(faker.number().randomDouble(1, 1, 5)));
+        productRating.setProduct(product);
         productRating.setUserName(faker.regexify("[a-zA-Z0-9]{5,16}"));
     }
 
@@ -53,7 +78,7 @@ public class ProductRatingRepositoryTest {
         assertThat(savedProductRating).isNotNull();
         assertThat(savedProductRating.getId()).isNotNull();
         assertThat(savedProductRating.getRatingStars()).isEqualTo(productRating.getRatingStars());
-        assertThat(savedProductRating.getProductId()).isEqualTo(productRating.getProductId());
+        assertThat(savedProductRating.getProduct()).isEqualTo(productRating.getProduct());
         assertThat(savedProductRating.getReview()).isEqualTo(productRating.getReview());
         assertThat(savedProductRating.getUserName()).isEqualTo(productRating.getUserName());
 

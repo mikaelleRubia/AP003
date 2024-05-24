@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ShoppingCartItemTest {
-    private static  final Faker faker = new Faker(new Locale("pt-BR"));
+    private static  final Faker faker = new Faker(new Locale("en-US"));
     private static final Logger log = LoggerFactory.getLogger(ShoppingCartItemTest.class);
     private static Validator validator;
 
@@ -32,7 +32,7 @@ public class ShoppingCartItemTest {
 
     @Test
     public void testValidShoppingCartItem(){
-        ShoppingCartItem item = new ShoppingCartItem(1L, faker.commerce().productName(), new BigDecimal(faker.random().nextDouble()).setScale(5,RoundingMode.HALF_UP), null);
+        ShoppingCartItem item = new ShoppingCartItem(1L, faker.commerce().productName(), new BigDecimal(faker.random().nextDouble()).setScale(2,RoundingMode.HALF_UP), null);
         Set<ConstraintViolation<ShoppingCartItem>> violations = validator.validate(item);
         log.info("--- Running ValidShoppingCartItem ---\nItem: {}\n", item);
         assertTrue(violations.isEmpty());
@@ -40,7 +40,7 @@ public class ShoppingCartItemTest {
 
     @Test
     public void testEmptyName(){
-        ShoppingCartItem item = new ShoppingCartItem(1L, "", new BigDecimal(faker.random().nextDouble()).setScale(5, RoundingMode.HALF_UP), null);
+        ShoppingCartItem item = new ShoppingCartItem(1L, "", new BigDecimal(faker.random().nextDouble()).setScale(2, RoundingMode.HALF_UP), null);
         Set<ConstraintViolation<ShoppingCartItem>> violations = validator.validate(item);
         log.info("--- Running EmptyName ---\nItem: {}", item);
         assertEquals(1, violations.size());
@@ -50,7 +50,7 @@ public class ShoppingCartItemTest {
 
     @Test
     public void testNegativeOrZeroPrice(){
-        ShoppingCartItem item = new ShoppingCartItem(1L, faker.commerce().productName(), new BigDecimal(faker.random().nextDouble()).setScale(5, RoundingMode.HALF_UP).subtract(BigDecimal.ONE), null);
+        ShoppingCartItem item = new ShoppingCartItem(1L, faker.commerce().productName(), new BigDecimal(faker.random().nextDouble()).setScale(2, RoundingMode.HALF_UP).subtract(BigDecimal.ONE), null);
         Set<ConstraintViolation<ShoppingCartItem>> violations = validator.validate(item);
         log.info("--- Running NegativeOrZeroPrice ---\nItem: {}", item);
         assertEquals(1, violations.size());

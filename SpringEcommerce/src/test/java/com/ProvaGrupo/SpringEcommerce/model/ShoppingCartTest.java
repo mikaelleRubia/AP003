@@ -15,12 +15,11 @@ import java.math.RoundingMode;
 import java.util.Locale;
 import java.util.Set;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ShoppingCartTest {
-    private static final Faker faker = new Faker(new Locale("pt-BR"));
+    private static final Faker faker = new Faker(new Locale("en-US"));
     private static final Logger log = LoggerFactory.getLogger(ShoppingCartItemTest.class);
     private static Validator validator;
 
@@ -45,14 +44,9 @@ public class ShoppingCartTest {
         ShoppingCart cart = new ShoppingCart(1L, price, faker.random().nextInt(999), "", null);
         Set<ConstraintViolation<ShoppingCart>> violations = validator.validate(cart);
         log.info("--- Running EmptyUsername ---\nCart: {}\n", cart);
-        // TODO: Teste com erro corigir
-        //assertEquals(1, violations.size());
-        //log.info("--- Violation Empty Username: {}\n", violations.iterator().next().getMessage());
-        //assertEquals("Username shouldn't be empty", violations.iterator().next().getMessage());
-        
-        assertThat(violations).hasSize(2)
-        .extracting(ConstraintViolation::getMessage)
-        .containsExactlyInAnyOrder("Username shouldn't be empty", "Username should be between 3 and 30 characters");
+        assertEquals(1, violations.size());
+        log.info("--- Violation Empty Username: {}\n", violations.iterator().next().getMessage());
+        assertEquals("Username shouldn't be empty", violations.iterator().next().getMessage());
     }
 
     @Test
@@ -63,7 +57,7 @@ public class ShoppingCartTest {
         log.info("--- Running MinUsername ---\nCart: {}\n", cart);
         assertEquals(1, violations.size());
         log.info("--- Violation Min Username: {}\n", violations.iterator().next().getMessage());
-        assertEquals("Username should be between 3 and 30 characters", violations.iterator().next().getMessage());
+        assertEquals("Username should be between 3 and 50 characters", violations.iterator().next().getMessage());
     }
 
     @Test
