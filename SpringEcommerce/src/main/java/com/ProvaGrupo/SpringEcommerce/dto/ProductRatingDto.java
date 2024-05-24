@@ -40,4 +40,14 @@ public record ProductRatingDto(
         productRating.setUserName(productRatingDto.userName());
         return productRating;
     }
+	
+    public ProductRatingDto(ProductRating productRating) {
+        this(
+            productRating.getId(),
+            productRating.getRatingStars(),
+            productRating.getReview(),
+            null,
+            productRating.getUserName()
+        );
+    }
 }

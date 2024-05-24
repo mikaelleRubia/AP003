@@ -11,13 +11,16 @@ import com.ProvaGrupo.SpringEcommerce.model.Product;
 import com.ProvaGrupo.SpringEcommerce.model.ProductAttribute;
 import com.ProvaGrupo.SpringEcommerce.model.ProductRating;
 import com.ProvaGrupo.SpringEcommerce.repository.CategoryRepository;
+import com.ProvaGrupo.SpringEcommerce.repository.ProductRatingRepository;
 import com.ProvaGrupo.SpringEcommerce.repository.ProductRepository;
+
 import org.springframework.transaction.annotation.Transactional;
 import jakarta.persistence.EntityNotFoundException;
 import com.ProvaGrupo.SpringEcommerce.controller.form.ProductForm;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -29,14 +32,23 @@ public class ProductService {
 
     @Autowired
     private CategoryRepository categoryRepository;
+    
+    @Autowired
+    private ProductRatingRepository productRatingRepository;
+    
 
     @Transactional(readOnly = true)
     public List<ProductDto> findAll() {
         return repository.findAll().stream()
-                .map(ProductDto::new)
+                .map(this::convertToProductDto)
                 .collect(Collectors.toList());
     }
 
+    private ProductDto convertToProductDto(Product product) {
+        Set<ProductRating> productRatings = productRatingRepository.findByProductId(product.getId()).orElse(Set.of());
+        return new ProductDto(product, productRatings);
+    }
+    
     @Transactional(readOnly = true)
     public List<ProductDto>findByName(String name) {
         return repository.findByName(name).stream()
