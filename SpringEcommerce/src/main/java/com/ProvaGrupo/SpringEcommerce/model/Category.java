@@ -4,6 +4,7 @@ package com.ProvaGrupo.SpringEcommerce.model;
 
 import java.util.List;
 
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -36,5 +37,6 @@ public class Category {
     @Size(min = 3, max = 100, message = "Category name must be between 3 and 100 characters")
     private String name;
     
+    @ElementCollection
     private List<String> possibleFacets;
 }

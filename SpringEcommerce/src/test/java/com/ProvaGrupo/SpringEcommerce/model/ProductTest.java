@@ -6,11 +6,11 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Set;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import com.github.javafaker.Faker;
 
@@ -18,11 +18,11 @@ import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 
-@SpringBootTest
-public class ProductTests {
+
+public class ProductTest {
 	
-    private static final Faker faker = new Faker(new Locale("py-br"));
-    private static final Logger LOGGER = LoggerFactory.getLogger(ProductTests.class);
+    private static final Faker faker = new Faker(new Locale("pt-BR"));
+    private static final Logger LOGGER = LoggerFactory.getLogger(ProductTest.class);
     private final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
     
 	private String name;
@@ -47,9 +47,11 @@ public class ProductTests {
                 .sku(faker.regexify("[a-zA-Z0-9]{2,50}"))
                 .imageUrl("https://example.com/image.jpg")
                 .category(category)
+                .productAttributeList(new ArrayList<>())
                 .quantity(10)
                 .manufacturer("Example Manufacturer")
                 .featured(true)
+                .productRating(new ArrayList<>())
                 .build();
     }
 	

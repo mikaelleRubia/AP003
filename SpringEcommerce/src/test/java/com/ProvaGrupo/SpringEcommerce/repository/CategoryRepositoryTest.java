@@ -1,6 +1,6 @@
 package com.ProvaGrupo.SpringEcommerce.repository;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Assertions;
@@ -39,7 +39,7 @@ public class CategoryRepositoryTest {
 
 		category = Category.builder()
 				.name(name)
-				.possibleFacets(new ArrayList<>())
+				.possibleFacets(List.of("facet1", "facet2"))
 				.build();
 	}
 	
@@ -80,10 +80,10 @@ public class CategoryRepositoryTest {
     public void searchByNameShouldReturnObjectWhenNameExists() {
         testEntityManager.persistFlushFind(category);
 
-        Optional<Category> result = categoryRepository.findByName(name);
+        List<Category> result = categoryRepository.findByName(name);
         Assertions.assertFalse(result.isEmpty());
 
-        Category category_ = result.get();
+        Category category_ = result.get(0);
         Assertions.assertNotNull(category_.getId());
         Assertions.assertEquals(name, category_.getName());
         LOGGER.info("Test searchByNameShouldReturnObjectWhenNameExists: Category found with name '{}'.", name);
