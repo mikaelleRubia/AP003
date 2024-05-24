@@ -16,15 +16,10 @@ import jakarta.validation.constraints.Size;
  */
 
 public record ProductRatingDto(
-    Long id,
-
     @NotNull(message = "Rating is required")
     @Min(value = 1, message = "Product rating must be between 1 and 5")
     @Max(value = 5, message = "Product rating must be between 1 and 5")
     BigDecimal ratingStars,
-
-    @NotNull(message = "Sku is required")
-    String sku,
 
     String review,
 
@@ -43,10 +38,8 @@ public record ProductRatingDto(
 	
     public ProductRatingDto(ProductRating productRating) {
         this(
-            productRating.getId(),
             productRating.getRatingStars(),
             productRating.getReview(),
-            null,
             productRating.getUserName()
         );
     }
