@@ -23,18 +23,18 @@ public class ProductRatingController {
 	@Autowired
     private ProductRatingService productRatingService;
 
-    @PostMapping("/submit")
-    public ResponseEntity<?> postRating(@RequestBody @Valid ProductRatingDto productRatingDto) {
-    	return productRatingService.postProductRating(productRatingDto);
+    @PostMapping("/submit/{sku}")
+    public ResponseEntity<?> postRating(@RequestBody @Valid ProductRatingDto productRatingDto, @PathVariable String sku) {
+    	return productRatingService.postProductRating(productRatingDto, sku);
     }
 
-    @PutMapping("/edit")
-    public ResponseEntity<?>  editRating(@RequestBody @Valid ProductRatingDto productRatingDto) {
-    	return productRatingService.editProductRating(productRatingDto);
+    @PutMapping("/edit/{id}")
+    public ResponseEntity<?>  editRating(@RequestBody @Valid ProductRatingDto productRatingDto, @PathVariable Long id) {
+    	return productRatingService.editProductRating(productRatingDto, id);
     }
 
     @DeleteMapping("/delete/{ratingId}")
-    public ResponseEntity<?>  deleteRating(@PathVariable String ratingId) {
+    public ResponseEntity<?>  deleteRating(@PathVariable Long ratingId) {
     	return productRatingService.deleteProductRating(ratingId);
     }
 

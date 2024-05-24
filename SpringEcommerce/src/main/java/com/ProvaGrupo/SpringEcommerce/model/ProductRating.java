@@ -46,7 +46,7 @@ public class ProductRating {
     @Size(min = 5, max = 16, message = "User name needs to be at least 5 characters long and at most 16 characters long")
     private String userName;
 
-
+    
     @NotNull(message = "Product is required")
     @ManyToOne
     @JoinColumn(name = "product_id_class")
