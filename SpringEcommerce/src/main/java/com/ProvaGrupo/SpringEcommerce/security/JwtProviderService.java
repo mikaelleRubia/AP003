@@ -21,9 +21,6 @@ public class JwtProviderService {
 	
 	private final JwtEncoder jwtEncoder;
 	
-	
-	
-	
 	public String generateToken(Authentication authentication, Long EXPIRATION_TIME_IN_SECONDS) {
 		log.info("Authentication generateToken: {}", authentication.toString());
 		User principal = (User) authentication.getPrincipal();
