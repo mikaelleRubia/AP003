@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Set;
 
@@ -23,6 +24,8 @@ public class ShoppingCartItemTest {
     private static  final Faker faker = new Faker(new Locale("en-US"));
     private static final Logger log = LoggerFactory.getLogger(ShoppingCartItemTest.class);
     private static Validator validator;
+
+    private Product product;
 
     @BeforeAll
     public static void setUp(){

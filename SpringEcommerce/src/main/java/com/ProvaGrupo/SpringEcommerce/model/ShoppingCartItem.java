@@ -32,7 +32,7 @@ public class ShoppingCartItem {
 
     @ToString.Exclude
     @ManyToOne
-    @JoinColumn(name = "product_id", nullable = false)
+    @JoinColumn(name = "product_id")
     private Product product;
 
 }
