@@ -3,15 +3,16 @@ package com.ProvaGrupo.SpringEcommerce.service;
 import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
+import com.ProvaGrupo.SpringEcommerce.auth.infra.security.TokenService;
+import com.ProvaGrupo.SpringEcommerce.auth.model.User;
 import com.ProvaGrupo.SpringEcommerce.model.VerificationToken;
 import com.ProvaGrupo.SpringEcommerce.repository.VerificationTokenRepository;
-import com.ProvaGrupo.SpringEcommerce.security.JwtProviderService;
 
 @Service
 public class VerificationTokenService {
@@ -20,19 +21,19 @@ public class VerificationTokenService {
 	private VerificationTokenRepository tokenRepository;
 
 	@Autowired
-	private JwtProviderService jwtProviderService;
+	private TokenService jwtProviderService;
 
-	// 3600 segundos = 1 hora
-	public static final Long EXPIRATION_TIME_IN_SECONDS = 3600L;
-
+	@Value("${auth.security.token.expiration-time}")
+    private static long EXPIRATION_TIME_IN_SECONDS;
+	
 	public VerificationToken createToken(Authentication authentication, Long userId) {
-		String tokenValue = jwtProviderService.generateToken(authentication, EXPIRATION_TIME_IN_SECONDS);
-		Instant expiryDate = Instant.now().plusSeconds(EXPIRATION_TIME_IN_SECONDS);
+		String tokenValue = jwtProviderService.generateToken((User) authentication.getPrincipal());
+		
 		
 		VerificationToken token = new VerificationToken();
 		token.setToken(tokenValue);
 		token.setUserId(userId);
-		token.setExpiryDate(expiryDate);
+		token.setExpiryDate(Instant.now().plusSeconds(EXPIRATION_TIME_IN_SECONDS));
 
 		return tokenRepository.save(token);
 	}

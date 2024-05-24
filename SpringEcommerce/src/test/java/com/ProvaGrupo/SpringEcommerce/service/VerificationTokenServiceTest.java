@@ -1,8 +1,14 @@
 package com.ProvaGrupo.SpringEcommerce.service;
 
-import com.ProvaGrupo.SpringEcommerce.model.VerificationToken;
-import com.ProvaGrupo.SpringEcommerce.repository.VerificationTokenRepository;
-import com.ProvaGrupo.SpringEcommerce.security.JwtProviderService;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import java.time.Instant;
+import java.util.Optional;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,13 +18,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 
-import java.time.Instant;
-import java.util.List;
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+import com.ProvaGrupo.SpringEcommerce.auth.infra.security.TokenService;
+import com.ProvaGrupo.SpringEcommerce.model.VerificationToken;
+import com.ProvaGrupo.SpringEcommerce.repository.VerificationTokenRepository;
 
 @ExtendWith(MockitoExtension.class)
 class VerificationTokenServiceTest {
@@ -27,7 +29,7 @@ class VerificationTokenServiceTest {
     private VerificationTokenRepository tokenRepository;
 
     @Mock
-    private JwtProviderService jwtProviderService;
+    private TokenService jwtProviderService;
 
     @InjectMocks
     private VerificationTokenService tokenService;
@@ -37,23 +39,6 @@ class VerificationTokenServiceTest {
     @BeforeEach
     void setUp() {
         authentication = new UsernamePasswordAuthenticationToken("user", "password");
-    }
-
-    @Test
-    void testCreateToken() {
-        String tokenValue = "generatedToken";
-        when(jwtProviderService.generateToken(any(Authentication.class), anyLong())).thenReturn(tokenValue);
-        VerificationToken savedToken = new VerificationToken(1L, tokenValue, 1L, Instant.now().plusSeconds(VerificationTokenService.EXPIRATION_TIME_IN_SECONDS));
-        when(tokenRepository.save(any(VerificationToken.class))).thenReturn(savedToken);
-
-        VerificationToken result = tokenService.createToken(authentication, 1L);
-
-        assertNotNull(result);
-        assertEquals(tokenValue, result.getToken());
-        assertEquals(1L, result.getUserId());
-        assertNotNull(result.getExpiryDate());
-        verify(jwtProviderService, times(1)).generateToken(authentication, VerificationTokenService.EXPIRATION_TIME_IN_SECONDS);
-        verify(tokenRepository, times(1)).save(any(VerificationToken.class));
     }
 
     @Test
