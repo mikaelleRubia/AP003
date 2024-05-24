@@ -26,14 +26,14 @@ import com.ProvaGrupo.SpringEcommerce.service.CategoryService;
 
 
 @RestController
-@RequestMapping("/api/category/")
+@RequestMapping("/api/category")
 public class CategoryController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(CategoryController.class);
 	
 	@Autowired
 	private CategoryService service;
 	
-	@GetMapping
+	@GetMapping("/get/")
 	public ResponseEntity<List<CategoryDto>> findAll(@RequestParam(value = "name", required = false) String name) {
 	    try {
 
@@ -51,7 +51,7 @@ public class CategoryController {
         }
 	}
 	
-	@PutMapping("/{id}")
+	@PutMapping("/edit/{id}")
 	public ResponseEntity<CategoryDto> update(@PathVariable Long id, @RequestBody CategoryForm categoryFor) {
         try {
             CategoryDto categoryDto = service.update(id, categoryFor);
@@ -63,7 +63,7 @@ public class CategoryController {
         }
 	}
 	
-	@GetMapping(value = "/{id}")
+	@GetMapping("/get/{id}")
 	public ResponseEntity<CategoryDto> findById(@PathVariable Long id) {
         try {
             CategoryDto categoryDto = service.findById(id);
@@ -75,7 +75,7 @@ public class CategoryController {
         }
 	}
 	
-	@PostMapping
+	@PostMapping("/submit")
 	public ResponseEntity<CategoryDto> insert(@RequestBody CategoryForm categoryFor, UriComponentsBuilder uriC) {
 		
 		try {
@@ -91,7 +91,7 @@ public class CategoryController {
 	
 	}
 	
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Long id) {
 		try {
 			service.delete(id);
@@ -106,16 +106,16 @@ public class CategoryController {
 	
 	}
 	
-    @DeleteMapping("/")
-    public ResponseEntity<Void> deleteCategoryNull() {
-        LOGGER.warn("Attempt to delete without specifying ID");
-        return ResponseEntity.badRequest().build();
-    }
-    
-    @PutMapping("/")
-    public ResponseEntity<Void> updateCategoryNull() {
-        LOGGER.warn("Attempt to update without specifying ID");
-        return ResponseEntity.badRequest().build();
-    }
+//    @DeleteMapping("/delete/")
+//    public ResponseEntity<Void> deleteCategoryNull() {
+//        LOGGER.warn("Attempt to delete without specifying ID");
+//        return ResponseEntity.badRequest().build();
+//    }
+//    
+//    @PutMapping("/")
+//    public ResponseEntity<Void> updateCategoryNull() {
+//        LOGGER.warn("Attempt to update without specifying ID");
+//        return ResponseEntity.badRequest().build();
+//    }
 	
 }
