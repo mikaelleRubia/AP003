@@ -53,16 +53,13 @@ public class CartRepositoryTest {
                 .name(faker.commerce().productName())
                 .description("Example product description")
                 .price(new BigDecimal("99.99"))
-                .sku("ABCD1234-5678_ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
+                .sku(faker.regexify("[a-zA-Z0-9]{2,50}"))
                 .imageUrl("https://example.com/image.jpg")
                 .category(category)
                 .quantity(10)
                 .manufacturer("Example Manufacturer")
                 .featured(true)
                 .build();
-
-        categoryRepository.save(category);
-        productRepository.save(product);
 
         BigDecimal price = BigDecimal.valueOf(faker.random().nextDouble()).setScale(2, RoundingMode.HALF_UP).multiply(BigDecimal.valueOf(faker.random().nextInt(9999)));
         cart = ShoppingCart.builder()
@@ -128,15 +125,11 @@ public class CartRepositoryTest {
 
     @Test
     public void testSaveWithItems(){
-
-        Product savedProduct = productRepository.save(product);
-
         log.info("--- Running SaveWithItems ---\n");
         ShoppingCartItem item = ShoppingCartItem.builder()
-                .Id(1L)
                 .name(faker.commerce().productName())
                 .price(BigDecimal.valueOf(faker.random().nextDouble()).setScale(2, RoundingMode.HALF_UP))
-                .product(savedProduct)
+                .product(product)
                 .shoppingCart(cart)
                 .build();
         List<ShoppingCartItem> items = new ArrayList<>();

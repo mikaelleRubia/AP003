@@ -5,6 +5,7 @@ import jakarta.validation.constraints.*;
 import lombok.*;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -30,5 +31,5 @@ public class ShoppingCart {
 
     @ToString.Exclude
     @OneToMany(mappedBy = "shoppingCart" , cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-    private List<ShoppingCartItem> shoppingCartItems;
+    private List<ShoppingCartItem> shoppingCartItems = new ArrayList<>();
 }

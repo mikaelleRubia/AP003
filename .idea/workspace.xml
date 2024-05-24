@@ -6,8 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="7169e1b5-5e5d-4075-8116-552a6dae0be7" name="Changes" comment="&#10;update: fixing service and test with remove">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SpringEcommerce/src/main/java/com/ProvaGrupo/SpringEcommerce/model/ShoppingCartItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/SpringEcommerce/src/main/java/com/ProvaGrupo/SpringEcommerce/model/ShoppingCartItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SpringEcommerce/src/test/java/com/ProvaGrupo/SpringEcommerce/model/ShoppingCartItemTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/SpringEcommerce/src/test/java/com/ProvaGrupo/SpringEcommerce/model/ShoppingCartItemTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SpringEcommerce/src/main/java/com/ProvaGrupo/SpringEcommerce/model/ShoppingCart.java" beforeDir="false" afterPath="$PROJECT_DIR$/SpringEcommerce/src/main/java/com/ProvaGrupo/SpringEcommerce/model/ShoppingCart.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SpringEcommerce/src/test/java/com/ProvaGrupo/SpringEcommerce/repository/CartRepositoryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/SpringEcommerce/src/test/java/com/ProvaGrupo/SpringEcommerce/repository/CartRepositoryTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -95,6 +94,7 @@
     "JUnit.CartSeviceTest.testRemoveItemFromCart.executor": "Run",
     "JUnit.CartSeviceTest.testUpdateItemQuantityInCart.executor": "Run",
     "JUnit.CartSeviceTest.testUpdateItemQuantityInCartCartNotFound.executor": "Run",
+    "JUnit.CartSeviceTest.testUpdateItemQuantityInCartInvalidQuantity.executor": "Run",
     "JUnit.CartSeviceTest.testUpdateItemQuantityInCartProductNotFound.executor": "Run",
     "JUnit.CartSeviceTest.testUpdateItemQuantityInCartUserNotAuthenticated.executor": "Run",
     "JUnit.ShoppingCartItemTest.executor": "Run",
@@ -170,7 +170,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CartRepositoryTest.testSaveWithItems" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="CartRepositoryTest.testSaveAndFindById" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="SpringEcommerce" />
       <extension name="coverage">
         <pattern>
@@ -180,7 +180,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.ProvaGrupo.SpringEcommerce.repository" />
       <option name="MAIN_CLASS_NAME" value="com.ProvaGrupo.SpringEcommerce.repository.CartRepositoryTest" />
-      <option name="METHOD_NAME" value="testSaveWithItems" />
+      <option name="METHOD_NAME" value="testSaveAndFindById" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -201,7 +201,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CartSeviceTest.testUpdateItemQuantityInCartInvalidQuantity" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="CartSeviceTest.testAddToCartProductNotFound" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="SpringEcommerce" />
       <extension name="coverage">
         <pattern>
@@ -211,7 +211,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.ProvaGrupo.SpringEcommerce.service" />
       <option name="MAIN_CLASS_NAME" value="com.ProvaGrupo.SpringEcommerce.service.CartSeviceTest" />
-      <option name="METHOD_NAME" value="testUpdateItemQuantityInCartInvalidQuantity" />
+      <option name="METHOD_NAME" value="testAddToCartProductNotFound" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -228,10 +228,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.CartControllerTest" />
-        <item itemvalue="JUnit.CartSeviceTest.testUpdateItemQuantityInCartInvalidQuantity" />
         <item itemvalue="JUnit.CartSeviceTest" />
-        <item itemvalue="JUnit.CartRepositoryTest.testSaveWithItems" />
+        <item itemvalue="JUnit.CartSeviceTest.testAddToCartProductNotFound" />
         <item itemvalue="JUnit.CartRepositoryTest" />
+        <item itemvalue="JUnit.CartRepositoryTest.testSaveAndFindById" />
       </list>
     </recent_temporary>
   </component>
@@ -258,7 +258,7 @@
       <workItem from="1716301874428" duration="11692000" />
       <workItem from="1716389771855" duration="30555000" />
       <workItem from="1716498158352" duration="6251000" />
-      <workItem from="1716547867137" duration="11601000" />
+      <workItem from="1716547867137" duration="20119000" />
     </task>
     <servers />
   </component>
