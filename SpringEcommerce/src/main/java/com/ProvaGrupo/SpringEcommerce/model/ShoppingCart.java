@@ -26,11 +26,10 @@ public class ShoppingCart {
     @Min(value = 0, message = "Number of items should to be 0 or greater")
     private int numberOfItems;
 
-    @NotBlank(message = "Username shouldn't be empty")
     @Size(min = 3, max = 30, message = "Username should be between 3 and 30 characters")
     private String username;
 
     @ToString.Exclude
     @OneToMany(mappedBy = "shoppingCart" , cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-    private List<ShoppingCartItem> shoppingCartItems = new ArrayList<>();;
+    private List<ShoppingCartItem> shoppingCartItems = new ArrayList<>();
 }

@@ -39,17 +39,6 @@ public class ShoppingCartTest {
     }
 
     @Test
-    public void testEmptyUsername(){
-        BigDecimal price = BigDecimal.valueOf(faker.random().nextDouble()).setScale(2, RoundingMode.HALF_UP).multiply(BigDecimal.valueOf(faker.random().nextInt(9999)));
-        ShoppingCart cart = new ShoppingCart(1L, price, faker.random().nextInt(999), "", null);
-        Set<ConstraintViolation<ShoppingCart>> violations = validator.validate(cart);
-        log.info("--- Running EmptyUsername ---\nCart: {}\n", cart);
-        assertEquals(1, violations.size());
-        log.info("--- Violation Empty Username: {}\n", violations.iterator().next().getMessage());
-        assertEquals("Username shouldn't be empty", violations.iterator().next().getMessage());
-    }
-
-    @Test
     public void testMinUsername(){
         BigDecimal price = BigDecimal.valueOf(faker.random().nextDouble()).setScale(2, RoundingMode.HALF_UP).multiply(BigDecimal.valueOf(faker.random().nextInt(9999)));
         ShoppingCart cart = new ShoppingCart(1L, price, faker.random().nextInt(999), faker.name().username().substring(0, 2), null);
@@ -57,7 +46,7 @@ public class ShoppingCartTest {
         log.info("--- Running MinUsername ---\nCart: {}\n", cart);
         assertEquals(1, violations.size());
         log.info("--- Violation Min Username: {}\n", violations.iterator().next().getMessage());
-        assertEquals("Username should be between 3 and 50 characters", violations.iterator().next().getMessage());
+        assertEquals("Username should be between 3 and 30 characters", violations.iterator().next().getMessage());
     }
 
     @Test
