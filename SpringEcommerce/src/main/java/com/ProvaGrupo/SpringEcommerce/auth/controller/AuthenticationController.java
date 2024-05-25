@@ -19,7 +19,9 @@ import com.ProvaGrupo.SpringEcommerce.auth.service.AuthenticationService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Controller class for authentication endpoints. It handles the HTTP requests related to authentication.
@@ -27,8 +29,11 @@ import jakarta.validation.Valid;
  * 
  * @see AuthenticationService
  */
+
+@Slf4j
 @RestController
 @RequestMapping("/auth")
+@Tag(name = "Authentication", description = "Operations related to user authentication")
 public class AuthenticationController {
 
     @Autowired
@@ -51,7 +56,9 @@ public class AuthenticationController {
     public ResponseEntity<LoginResponseDTO> login(
             @RequestBody @Valid LoginDTO data) {
         
+        log.info("Attempting to authenticate user with email: {}", data.username());
         var response = authService.login(data);
+        log.info("User with email: {} authenticated successfully", data.username());
         return ResponseEntity.ok(response);
     }
 
@@ -70,7 +77,9 @@ public class AuthenticationController {
     public ResponseEntity<String> signup(
             @RequestBody @Valid SignupDTO data) {
         
+        log.info("Attempting to sign up user with email: {}", data.username());
         authService.signup(data);
+        log.info("User with email: {} signed up successfully", data.username());
         return ResponseEntity.ok(bundle.getString("user.successfully_signed_up"));
     }
 
@@ -92,7 +101,9 @@ public class AuthenticationController {
             @RequestParam String email, 
             @RequestParam String token) {
         
+        log.info("Attempting to verify account for email: {}", email);
         authService.verifyAccount(email, token);
+        log.info("Account for email: {} verified successfully", email);
         return ResponseEntity.ok(bundle.getString("user.successfully_verified"));
     }
 
@@ -111,7 +122,9 @@ public class AuthenticationController {
     public ResponseEntity<String> resendVerification(
             @RequestParam String email) {
         
+        log.info("Attempting to resend verification email to: {}", email);
         authService.resendVerification(email);
+        log.info("Verification email resent to: {}", email);
         return ResponseEntity.ok(bundle.getString("user.verification_email_resent"));
     }
 }
