@@ -62,7 +62,7 @@ public class ProductRatingService {
         }
     }
 
-    public ResponseEntity<?> editProductRating(@Valid ProductRatingDto productRatingDto, Long id) {
+    public ResponseEntity<?> editProductRating(@Valid ProductRatingDto productRatingDto, Long id){
         try {
             log.info("Attempting to edit product rating with ID: {}", id);
             ProductRating existingRating = productRatingRepository.findById(id)
@@ -76,7 +76,7 @@ public class ProductRatingService {
 
             log.info("Successfully edited product rating with ID: {}", id);
             return new ResponseEntity<>(updatedRating, HttpStatus.OK);
-        } catch (Exception e) {
+        } catch (IllegalArgumentException e) {
             log.error("Error editing product rating with ID: {}", id, e);
             return new ResponseEntity<>("Error editing product review", HttpStatus.INTERNAL_SERVER_ERROR);
         }
