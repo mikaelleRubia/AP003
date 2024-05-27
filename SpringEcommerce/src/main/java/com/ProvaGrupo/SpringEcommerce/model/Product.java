@@ -59,6 +59,7 @@ public class Product  {
     private String sku;
 
     @URL(message = "Image URL must be a valid URL")
+    @Size(max = 1000)
     private String imageUrl;
 
     @NotNull(message = "Category is required")
