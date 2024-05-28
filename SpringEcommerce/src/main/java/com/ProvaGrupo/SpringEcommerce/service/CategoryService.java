@@ -45,9 +45,7 @@ public class CategoryService {
 
     @Transactional
     public void delete(Long id) {
-       
-        Category category = repository.findById(id)
-                                      .orElseThrow(() -> new EntityNotFoundException("Category not found for id: " + id));        
+        repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Category not found for id: " + id));        
         repository.deleteById(id);
     }
     

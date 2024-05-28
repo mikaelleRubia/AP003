@@ -12,75 +12,88 @@ import com.ProvaGrupo.SpringEcommerce.repository.ProductRatingRepository;
 import com.ProvaGrupo.SpringEcommerce.repository.ProductRepository;
 
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 public class ProductRatingService {
 
-	@Autowired
-	ProductRatingRepository productRatingRepository;
 
-	@Autowired
-	ProductRepository productRepository;
+    @Autowired
+    ProductRatingRepository productRatingRepository;
 
-	public ResponseEntity<?> postProductRating(@Valid ProductRatingDto productRatingDto, String sku) {
-		try {
-			ProductRating productRating = productRatingDto.toProductRating(productRatingDto);
+    @Autowired
+    ProductRepository productRepository;
 
-			Product product = productRepository.findBySku(sku)
-					.orElseThrow(() -> new IllegalArgumentException("Product not found with the provided SKU"));
-			productRating.setProduct(product);
+    public ResponseEntity<?> postProductRating(@Valid ProductRatingDto productRatingDto, String sku) {
+        try {
+            log.info("Attempting to post a new product rating for SKU: {}", sku);
+            ProductRating productRating = productRatingDto.toProductRating(productRatingDto);
 
-			ProductRating savedRating = productRatingRepository.save(productRating);
+            Product product = productRepository.findBySku(sku)
+                    .orElseThrow(() -> new IllegalArgumentException("Product not found with the provided SKU"));
+            productRating.setProduct(product);
 
-			product.getProductRating().add(savedRating);
+            ProductRating savedRating = productRatingRepository.save(productRating);
 
-			productRepository.save(product);
+            product.getProductRating().add(savedRating);
 
-			return new ResponseEntity<>(savedRating, HttpStatus.CREATED);
-		} catch (Exception e) {
-			return new ResponseEntity<>("Error creating product rating ", HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
+            productRepository.save(product);
 
-	public ResponseEntity<?> getProductRating(String sku) {
-		try {
-			Product product = productRepository.findBySku(sku)
-					.orElseThrow(() -> new IllegalArgumentException("Product not found with the provided SKU"));
+            log.info("Successfully posted a new product rating for SKU: {}", sku);
+            return new ResponseEntity<>(savedRating, HttpStatus.CREATED);
+        } catch (Exception e) {
+            log.error("Error creating product rating for SKU: {}", sku, e);
+            return new ResponseEntity<>("Error creating product rating", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
-			return new ResponseEntity<>(product.getProductRating(), HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<>("Error retrieving product reviews", HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
+    public ResponseEntity<?> getProductRating(String sku) {
+        try {
+            log.info("Attempting to retrieve product ratings for SKU: {}", sku);
+            Product product = productRepository.findBySku(sku)
+                    .orElseThrow(() -> new IllegalArgumentException("Product not found with the provided SKU"));
 
-	public ResponseEntity<?> editProductRating(@Valid ProductRatingDto productRatingDto, Long id) {
-	    try {
-	        ProductRating existingRating = productRatingRepository.findById(id)
-	                .orElseThrow(() -> new IllegalArgumentException("Product review not found"));
+            log.info("Successfully retrieved product ratings for SKU: {}", sku);
+            return new ResponseEntity<>(product.getProductRating(), HttpStatus.OK);
+        } catch (Exception e) {
+            log.error("Error retrieving product ratings for SKU: {}", sku, e);
+            return new ResponseEntity<>("Error retrieving product reviews", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
-	        existingRating.setRatingStars(productRatingDto.ratingStars());
-	        existingRating.setReview(productRatingDto.review());
-	        existingRating.setUserName(productRatingDto.userName());
+    public ResponseEntity<?> editProductRating(@Valid ProductRatingDto productRatingDto, Long id){
+        try {
+            log.info("Attempting to edit product rating with ID: {}", id);
+            ProductRating existingRating = productRatingRepository.findById(id)
+                    .orElseThrow(() -> new IllegalArgumentException("Product review not found"));
 
-	        ProductRating updatedRating = productRatingRepository.save(existingRating);
+            existingRating.setRatingStars(productRatingDto.ratingStars());
+            existingRating.setReview(productRatingDto.review());
+            existingRating.setUserName(productRatingDto.userName());
 
-	        return new ResponseEntity<>(updatedRating, HttpStatus.OK);
-	    } catch (Exception e) {
-	        return new ResponseEntity<>("Error editing product review", HttpStatus.INTERNAL_SERVER_ERROR);
-	    }
-	}
+            ProductRating updatedRating = productRatingRepository.save(existingRating);
 
+            log.info("Successfully edited product rating with ID: {}", id);
+            return new ResponseEntity<>(updatedRating, HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            log.error("Error editing product rating with ID: {}", id, e);
+            return new ResponseEntity<>("Error editing product review", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
-	public ResponseEntity<?> deleteProductRating(Long ratingId) {
-		try {
-			ProductRating productRating = productRatingRepository.findById(ratingId)
-					.orElseThrow(() -> new IllegalArgumentException("Product review not found"));
-			productRatingRepository.delete(productRating);
-			
-			return new ResponseEntity<>("Product review successfully deleted", HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<>("Error deleting product review", HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
+    public ResponseEntity<?> deleteProductRating(Long ratingId) {
+        try {
+            log.info("Attempting to delete product rating with ID: {}", ratingId);
+            ProductRating productRating = productRatingRepository.findById(ratingId)
+                    .orElseThrow(() -> new IllegalArgumentException("Product review not found"));
+            productRatingRepository.delete(productRating);
 
+            log.info("Successfully deleted product rating with ID: {}", ratingId);
+            return new ResponseEntity<>("Product review successfully deleted", HttpStatus.OK);
+        } catch (Exception e) {
+            log.error("Error deleting product rating with ID: {}", ratingId, e);
+            return new ResponseEntity<>("Error deleting product review", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

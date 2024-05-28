@@ -2,7 +2,6 @@ package com.ProvaGrupo.SpringEcommerce.dto;
 
 import java.math.BigDecimal;
 
-import com.ProvaGrupo.SpringEcommerce.model.Product;
 import com.ProvaGrupo.SpringEcommerce.model.ProductRating;
 
 import jakarta.validation.constraints.Max;

@@ -18,7 +18,9 @@ import com.ProvaGrupo.SpringEcommerce.auth.service.PasswordResetService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Controller class for password reset endpoints. It handles the HTTP requests related to password reset.
@@ -26,8 +28,10 @@ import jakarta.validation.Valid;
  * 
  * @see PasswordResetService
  */
+@Slf4j
 @RestController
 @RequestMapping("/password")
+@Tag(name = "Password Reset", description = "Operations related to password reset")
 public class PasswordResetController {
 
     @Autowired
@@ -50,7 +54,9 @@ public class PasswordResetController {
     public ResponseEntity<String> requestReset(
             @RequestBody @Valid PasswordResetRequestDTO data) {
                 
+        log.info("Requesting password reset for email: {}", data.email());
         passwordResetService.requestReset(data);
+        log.info("Password reset requested successfully for email: {}", data.email());
         return ResponseEntity.ok(bundle.getString("password_reset.requested"));
     }
 
@@ -75,7 +81,9 @@ public class PasswordResetController {
             @RequestParam String token,
             @RequestBody @Valid PasswordResetDTO data) {
 
+        log.info("Resetting password for email: {}", email);
         passwordResetService.reset(email, token, data);
+        log.info("Password reset successfully for email: {}", email);
         return ResponseEntity.ok(bundle.getString("password_reset.successful"));
     }
 }
