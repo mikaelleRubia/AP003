@@ -45,9 +45,7 @@ public class CategoryService {
 
     @Transactional
     public void delete(Long id) {
-       
-        Category category = repository.findById(id)
-                                      .orElseThrow(() -> new EntityNotFoundException("Category not found for id: " + id));        
+        repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Category not found for id: " + id));        
         repository.deleteById(id);
     }
     
@@ -56,7 +54,7 @@ public class CategoryService {
         Category entity = repository.findById(id)
         						.orElseThrow(() -> new EntityNotFoundException("User not found for id: " + id));
         entity.setName(categoryForm.name());
-        List<String> newFacets = categoryForm.possibleFacet();
+        List<String> newFacets = categoryForm.possibleFacets();
         entity.getPossibleFacets().clear();
         entity.getPossibleFacets().addAll(newFacets);
         entity = repository.save(entity);
@@ -66,8 +64,10 @@ public class CategoryService {
     @Transactional
 	public CategoryDto insert(CategoryForm categoryForm) {
 		Category entity = new Category();
+	    System.out.println("Possible Facets: " + categoryForm.possibleFacets()); // Verifique o valor aqui
+
 		entity.setName(categoryForm.name());
-		entity.setPossibleFacets(categoryForm.possibleFacet());
+		entity.setPossibleFacets(categoryForm.possibleFacets());
 		entity = repository.save(entity);
 		return new CategoryDto(entity);
 	}

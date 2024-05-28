@@ -1,8 +1,6 @@
 package com.ProvaGrupo.SpringEcommerce.repository;
 
-import com.ProvaGrupo.SpringEcommerce.model.ShoppingCart;
-import com.ProvaGrupo.SpringEcommerce.model.ShoppingCartItem;
-import com.ProvaGrupo.SpringEcommerce.model.ShoppingCartItemTest;
+import com.ProvaGrupo.SpringEcommerce.model.*;
 import com.github.javafaker.Faker;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -31,22 +29,46 @@ public class CartRepositoryTest {
     @Autowired
     private CartRepository cartRepository;
 
+    @Autowired
+    private ProductRepository productRepository;
+
+    @Autowired
+    private CategoryRepository categoryRepository;
+
     private Faker faker = new Faker(new Locale("en-US"));
     private static final Logger log = LoggerFactory.getLogger(ShoppingCartItemTest.class);
 
     private ShoppingCart cart;
-
+    private Product product;
 
     @BeforeEach
     public void setup(){
+
+        Category category = Category.builder()
+                .name("Electronics")
+                .possibleFacets(new ArrayList<>())
+                .build();
+
+        product = Product.builder()
+                .name(faker.commerce().productName())
+                .description("Example product description")
+                .price(new BigDecimal("99.99"))
+                .sku(faker.regexify("[a-zA-Z0-9]{2,50}"))
+                .imageUrl("https://example.com/image.jpg")
+                .category(category)
+                .quantity(10)
+                .manufacturer("Example Manufacturer")
+                .featured(true)
+                .build();
+
         BigDecimal price = BigDecimal.valueOf(faker.random().nextDouble()).setScale(2, RoundingMode.HALF_UP).multiply(BigDecimal.valueOf(faker.random().nextInt(9999)));
         cart = ShoppingCart.builder()
                 .id(null)
                 .cartTotalPrice(price)
                 .numberOfItems(faker.random().nextInt(999))
                 .username(faker.name().username())
-                .shoppingCartItems(null)
                 .build();
+
         log.info("Setup complete. Generated shopping cart: {}", cart);
     }
 
@@ -107,6 +129,7 @@ public class CartRepositoryTest {
         ShoppingCartItem item = ShoppingCartItem.builder()
                 .name(faker.commerce().productName())
                 .price(BigDecimal.valueOf(faker.random().nextDouble()).setScale(2, RoundingMode.HALF_UP))
+                .product(product)
                 .shoppingCart(cart)
                 .build();
         List<ShoppingCartItem> items = new ArrayList<>();

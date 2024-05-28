@@ -28,9 +28,8 @@ import lombok.NoArgsConstructor;
  * A user entity that implements the UserDetails interface to be used by Spring Security. 
  * The entity has a OneTimePassword embedded class to store the OTP and its generation time.
  * 
- * Each user has an id, a username, a password, and a role
+ * Each user has an id, a username, a password, an email, a boolean to check if the user is enabled, a role and an OTP.
  * 
- * @see Wishlist 
  * @see OneTimePassword 
  * @see UserRole
  * @see UserDetails

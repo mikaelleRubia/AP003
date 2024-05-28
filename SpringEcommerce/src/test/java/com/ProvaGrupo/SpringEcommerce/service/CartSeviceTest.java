@@ -263,11 +263,6 @@ public class CartSeviceTest {
     @Test
     public void testUpdateItemQuantityInCartInvalidQuantity() {
         log.info("--- Running UpdateItemQuantityInCartInvalidQuantity ---\n");
-        when(productRepository.findBySku(anyString())).thenReturn(Optional.of(product));
-        when(authService.getCurrentUser()).thenReturn(Optional.of(user));
-        when(cartRepository.findByUsername(anyString())).thenReturn(Optional.of(cart));
-        when(shoppingCartItemRepository.findByShoppingCartIdAndProductId(anyLong(), anyLong()))
-                .thenReturn(Optional.of(shoppingCartItem));
 
         SpringStoreException exception = assertThrows(SpringStoreException.class, () -> {
             log.debug("Attempting to update item quantity to an invalid value");

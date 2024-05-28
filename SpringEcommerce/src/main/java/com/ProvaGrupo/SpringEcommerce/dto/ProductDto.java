@@ -1,6 +1,8 @@
 package com.ProvaGrupo.SpringEcommerce.dto;
 
+import java.util.Set;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.ProvaGrupo.SpringEcommerce.model.Category;
@@ -23,15 +25,16 @@ public class ProductDto {
     private String sku;
     private String imageUrl;
     private Category category;
-    private List<ProductAttribute> productAttributeList;
+    private List<ProductAttribute> productAttributeList = new ArrayList<>();
     private Integer quantity;
     private String manufacturer;
     private boolean featured;
-    private List<ProductRating> productRating;
+    private List<ProductRatingDto> productRating = new ArrayList<>();
     
     
-	public ProductDto(Product product ) {
+	public ProductDto(Product product) {
 		super();
+		this.id = product.getId();
 		this.name = product.getName();
 		this.description = product.getDescription();
 		this.price = product.getPrice();
@@ -41,9 +44,14 @@ public class ProductDto {
 		this.quantity = product.getQuantity();
 		this.manufacturer = product.getManufacturer();
 		this.featured = product.getFeatured();
-		this.productRating = product.getProductRating();
+
 	}
+	
+    public ProductDto(Product product, Set<ProductRating> productRatings) {
+        this(product);
+        productRatings.forEach(rating -> this.productRating.add(new ProductRatingDto(rating)));
+    }
+	
     
-    
-    
+
 }

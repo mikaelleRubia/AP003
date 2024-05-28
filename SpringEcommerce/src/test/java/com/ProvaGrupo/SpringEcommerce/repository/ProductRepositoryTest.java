@@ -99,10 +99,10 @@ public class ProductRepositoryTest {
     public void searchByNameShouldReturnObjectWhenNameExists() {
         testEntityManager.persistFlushFind(product);
 
-        Optional<Product> result = productRepository.findByName(name);
+        List<Product> result = productRepository.findByName(name);
         Assertions.assertFalse(result.isEmpty());
 
-        Product product_ = result.get();
+        Product product_ = result.get(0);
         Assertions.assertNotNull(product_.getId());
         Assertions.assertEquals(name, product_.getName());
         LOGGER.info("Test searchByNameShouldReturnObjectWhenNameExists: Product found with name '{}'.", name);
@@ -124,10 +124,10 @@ public class ProductRepositoryTest {
     public void findByProductNameShouldReturnProductWhenNameExists() {
         testEntityManager.persistFlushFind(product);
 
-        Optional<Product> result = productRepository.findByName(name);
-        Assertions.assertTrue(result.isPresent());
+        List<Product> result = productRepository.findByName(name);
 
-        Product product_ = result.get();
+
+        Product product_ = result.get(0);
         Assertions.assertNotNull(product_.getId());
         Assertions.assertEquals(name, product_.getName());
         LOGGER.info("Test findByProductNameShouldReturnProductWhenNameExists: Product found with name '{}'.", name);

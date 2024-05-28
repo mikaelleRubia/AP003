@@ -4,6 +4,10 @@ import java.time.LocalDateTime;
 
 import jakarta.persistence.Embeddable;
 
+/**
+ * Represents a one-time password and the time it was generated. 
+ * OTPs are used for account verification and password reset.
+ */
 @Embeddable
 public record OneTimePassword(String otp, LocalDateTime otpGenerationTime) {
 
